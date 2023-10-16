@@ -5,7 +5,7 @@ export var PluralicBoard = function (_a) {
         React.createElement("h1", null, "boardgame.io Typescript Demo"),
         React.createElement("div", { style: {
                 display: 'grid',
-                gridTemplate: 'repeat(8, 3rem) / repeat(15, 3rem)',
+                gridTemplate: 'repeat(8, 3rem) / repeat(8, 3rem)',
                 gridGap: '0.3em',
             } }, G.tiles.map(function (tile, index) { return (React.createElement("button", { key: index, onClick: function () { console.log(index); } }, tile.token)); }))));
 };
