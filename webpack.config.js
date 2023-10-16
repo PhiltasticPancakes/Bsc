@@ -26,7 +26,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json', ".tsx"]
+    fullySpecified: false,
+    extensions: ['.ts', '.js', '.json', '.tsx']
   },
   devServer: {
     port: 3000,

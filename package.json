@@ -20,9 +20,8 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "nodemon",
-    "start": "webpack-dev-server --open --mode development --hot",
     "build": "webpack",
+    "start": "webpack-dev-server --open --mode development --hot",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

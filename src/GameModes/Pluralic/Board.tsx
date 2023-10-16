@@ -13,7 +13,7 @@ export const PluralicBoard = ({ G, ctx, moves}: PluralicProps) => {
       <div
         style={{
           display: 'grid',
-          gridTemplate: 'repeat(8, 3rem) / repeat(15, 3rem)',
+          gridTemplate: 'repeat(8, 3rem) / repeat(8, 3rem)',
           gridGap: '0.3em',
         }}
       >
