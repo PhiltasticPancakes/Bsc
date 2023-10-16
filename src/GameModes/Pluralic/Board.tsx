@@ -3,9 +3,9 @@ import { BoardProps } from 'boardgame.io/react';
 import { Ctx } from 'boardgame.io';
 import { PluralicState } from './Game';
 
-type PluralicProps = BoardProps<PluralicState> & { columns: number, rows: number }
+type PluralicProps = BoardProps<PluralicState>;
 
-export const PluralicBoard = ({ G, ctx, moves, columns, rows }: PluralicProps) => {
+export const PluralicBoard = ({ G, ctx, moves}: PluralicProps) => {
   return (
     <main>
       <h1>boardgame.io Typescript Demo</h1>
@@ -13,7 +13,7 @@ export const PluralicBoard = ({ G, ctx, moves, columns, rows }: PluralicProps) =
       <div
         style={{
           display: 'grid',
-          gridTemplate: 'repeat(8, 3rem) / repeat(8, 3rem)',
+          gridTemplate: 'repeat(8, 3rem) / repeat(15, 3rem)',
           gridGap: '0.3em',
         }}
       >
@@ -21,7 +21,6 @@ export const PluralicBoard = ({ G, ctx, moves, columns, rows }: PluralicProps) =
           <button
             key={index}
             onClick={() => {console.log(index)}}
-            disabled={tile !== null}
           >
             {tile.token}
           </button>
