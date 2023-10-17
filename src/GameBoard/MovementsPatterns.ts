@@ -1,15 +1,8 @@
-import { Tile } from "./Tile";
+import { GridG, GridPosition } from "./Board";
 
-export type GridPosition = {
-  row: number;
-  col: number;
-};
+export type MovementPattern = (pos: GridPosition, grid: GridG) => GridPosition[];
 
-export type Grid = Tile[][];
-
-export type MovementPattern = (pos: GridPosition, grid: Grid) => GridPosition[];
-
-export function horseMovement(pos: GridPosition, grid: Grid): GridPosition[] {
+export function horseMovement(pos: GridPosition, grid: GridG): GridPosition[] {
   const knightMoveOffsets = [
     { row: -2, col: -1 },
     { row: -2, col: 1 },
@@ -35,7 +28,7 @@ export function horseMovement(pos: GridPosition, grid: Grid): GridPosition[] {
 }
 
 
-export function castleMovement(pos: GridPosition, grid: Grid): GridPosition[] {
+export function castleMovement(pos: GridPosition, grid: GridG): GridPosition[] {
   const result: GridPosition[] = [];
   
   
@@ -45,7 +38,7 @@ export function castleMovement(pos: GridPosition, grid: Grid): GridPosition[] {
 
 
 
-function isWithinBounds(pos: GridPosition, grid: Grid): boolean {
+function isWithinBounds(pos: GridPosition, grid: GridG): boolean {
   const rowCount: number = grid.length;
   const colCount: number = grid[0].length;
   return pos.row >= 0 && pos.row < rowCount && pos.col >= 0 && pos.col < colCount

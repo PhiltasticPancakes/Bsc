@@ -1,23 +1,13 @@
 import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { horseMovement } from '../../GameBoard/MovementsPatterns';
+import { BoardG, GridG, GridPosition, getTileAtPosition } from '../../GameBoard/Board';
+import { makeMove } from 'boardgame.io/dist/types/src/core/action-creators';
 
-interface Tile {
-    token: any;
-    movementPattern: (board: PluralicState, row: number, col: number) => Tile[];
-}
-
-
-interface Position {
-    x: number;
-    y: number;
-}
-
-export type PluralicState = {
-    tiles: Tile[];
-}
+export type PluralicState = BoardG
 
 export const Pluralic: Game<PluralicState> = {
-    setup: () => ({ tiles: createBoard(8,8) }),
+    setup: () => ({ gridG: createBoardGrid(8,8) }),
 
     turn: {
         minMoves: 1,
@@ -25,24 +15,20 @@ export const Pluralic: Game<PluralicState> = {
     },
 
     moves: {
-        move: ({ G, playerID }: any, id: any, from: any, to: string) => {
-            const options: Tile[] = [];
-            console.log("moved to" + to);
+        move: ({ G, playerID }, from: GridPosition, to: GridPosition) => {
+            const possibleMoves: GridPosition[] = getTileAtPosition(from).movementPattern(from, G.gridG);
+            if(!possibleMoves.includes(to)) {
+                return INVALID_MOVE;
+            }
+            return;
         }
     },
 };
 
-
-function getOptions(board: Tile[], row: number, col: number) : Tile[] {
-    return [];
-}
-
-function createBoard(rows: number, cols: number): Tile[] {
-    const board: Tile[] = Array(rows*cols).fill({token: null, movementPattern: null});
-
-    return board;
-}
-
-function horseMovement() {
-    
-}
+function createBoardGrid(rows: number, cols: number): GridG {
+    const grid: GridG = Array.from(Array(rows), () => new Array(cols));
+    for(let i = 0; i<rows; i++) {
+        grid[i].fill({tokenG: null})
+    }
+    return grid;
+};

@@ -1,4 +1,4 @@
-import { MovementPattern } from "./MovementsPatterns";
+import { MovementPattern } from "./GameBoard/MovementsPatterns";
 
 export type Tile = {
     token: any;
