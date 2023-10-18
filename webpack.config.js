@@ -30,6 +30,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.json', '.tsx']
   },
   devServer: {
+    historyApiFallback: true,
     port: 3000,
     open: true,
     hot: true
