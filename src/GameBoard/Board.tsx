@@ -7,19 +7,20 @@ export type GridPosition = {
   row: number;
   col: number;
 };
+
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.
-export type BoardG = { gridG: GridG }
-export type TileG = { tokenG: Token };
-export type GridG = TileG[][];
-export type Token = { playerID: number }
+export type BoardState = { tiles: TileState[][] }
+export type TileState = Token;
+export type Token = playerID
+type playerID = number;
 
 //Props extending BG base type
-export type BaseBoardProps = BoardProps<BoardG> & {rows: number, cols: number};
+export type BaseBoardProps = BoardProps<BoardState> & {rows: number, cols: number};
 
 //Actual game objects containing functionality
-type Board = { grid: GridG };
+type Board = { grid: TileState[][] };
 
-export function getTileAtPosition(gridPos: GridPosition): TileG {
+export function getTileAtPosition(gridPos: GridPosition): TileState {
   return null;
 }
 
@@ -38,9 +39,9 @@ export const getOptionsFromPos = (gridPos: GridPosition): GridPosition[] => {
   return movementGrid[gridPos.row][gridPos.col].call(gridPos);
 }
 
-export const moveTo = (from: GridPosition, to: GridPosition, grid: GridG): void => {
-    grid[to.row][to.col] = {tokenG: {playerID: grid[from.row][from.col].tokenG.playerID}};
-    grid[from.row][from.col] = {tokenG: {playerID: null}};
+export const moveTo = (from: GridPosition, to: GridPosition, grid: TileState[][]): void => {
+    grid[to.row][to.col] = grid[from.row][from.col];
+    grid[from.row][from.col] = null;
 }
 
 export const Board = ({ G, ctx, moves }: BaseBoardProps) => {
@@ -49,14 +50,14 @@ export const Board = ({ G, ctx, moves }: BaseBoardProps) => {
 
   function handleOnTileClicked(gridPos: GridPosition): void {
     console.log( gridPos.row+ ", " + gridPos.col + ' clicked');
-    const clickedTile: TileG = getTileAtPos(gridPos);
+    const clickedTile: TileState = getTileAtPos(gridPos);
 
-    if(clickedTile.tokenG && clickedTile.tokenG.playerID-1 + "" == ctx.currentPlayer) {
+    if(clickedTile-1 + "" == ctx.currentPlayer) {
       console.log("setting sel")
       setSelected(gridPos);
       return;
     };
-    if(selected && clickedTile.tokenG?.playerID-1 + "" != ctx.currentPlayer) {
+    if(selected && clickedTile-1 + "" != ctx.currentPlayer) {
       console.log("move");
       moves.move(selected, gridPos); 
       setSelected(null);
@@ -69,11 +70,9 @@ export const Board = ({ G, ctx, moves }: BaseBoardProps) => {
     return (selected?.col==gridPos.col && selected?.row==gridPos.row);
   }
 
-  const getTileAtPos = (pos: GridPosition): TileG => {
-    return G.gridG[pos.row][pos.col];
+  const getTileAtPos = (pos: GridPosition): TileState => {
+    return G.tiles[pos.row][pos.col];
   }
-
-
 
   return (
     <main>
@@ -88,7 +87,7 @@ export const Board = ({ G, ctx, moves }: BaseBoardProps) => {
         }}
       >
 
-        {G.gridG.map((row, rowNum) => (
+        {G.tiles.map((row, rowNum) => (
           row.map((tileG, colNum) => (
             
             <Tile
@@ -106,15 +105,15 @@ export const Board = ({ G, ctx, moves }: BaseBoardProps) => {
   );
 };
 
-export function createBoardGrid(rows: number, cols: number): GridG {
-  const grid: GridG = Array.from(Array(rows), () => new Array(cols));
+export function createBoardGrid(rows: number, cols: number): TileState[][] {
+  const grid: TileState[][] = Array.from(Array(rows), () => new Array(cols));
   for (let i = 0; i < rows; i++) {
     if (i <= 1) {
-      grid[i].fill({ tokenG: { playerID: 2 } })
+      grid[i].fill(2)
     } else if (i >= rows - 2) {
-      grid[i].fill({ tokenG: { playerID: 1 } })
+      grid[i].fill(1)
     } else {
-      grid[i].fill({ tokenG: null })
+      grid[i].fill(null);
     }
   }
 
