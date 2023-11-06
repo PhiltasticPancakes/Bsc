@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { GridPosition } from "./Board";
-import { TileState } from "./Board";
+import { GridPosition } from "./PlayingBoard";
+import { Token } from "./PlayingBoard";
 
-type TileProps = { gridPos: GridPosition, tile: TileState, onClick: (gridPos: GridPosition) => void, isSelected: boolean}
+type TileProps = { gridPos: GridPosition, tile: Token, onClick: (gridPos: GridPosition) => void, highlight: boolean}
 
 export const Tile = (props: TileProps) => {
     return (
         <>
-            <button style={props.isSelected? {color: 'Green'} : {}}
+            <button style={props.highlight? {color: 'Green'} : {}}
                 onClick={() => { props.onClick(props.gridPos)}}
             >
                 {props.tile}

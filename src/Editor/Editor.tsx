@@ -22,6 +22,7 @@ export const Editor = () => {
                     ))}
                 </div>
                 <Grid squares={squares.map((square) => <Template key={square.id} id={square.id} pattern={square.pattern} />)} />
+                
             </div>
         </>
     );

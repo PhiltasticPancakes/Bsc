@@ -1,26 +1,56 @@
 import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
-import { horseMovement } from '../../GameBoard/MovementsPatterns';
-import { BoardState, GridPosition, createBoardGrid, getOptionsFromPos } from '../../GameBoard/Board';
-import { makeMove } from 'boardgame.io/dist/types/src/core/action-creators';
-import { moveTo } from '../../GameBoard/Board';
+import { BoardState,  } from '../../GameBoard/PlayingBoard';
+import { MoveDescription } from '../../GameBoard/PlayingBoard';
+import { MovementDescription, getAllPossibleMoves } from '../../GameBoard/MovementsPatterns';
 
 export const Pluralic: Game<BoardState> = {
-    setup: () => ({ tiles: createBoardGrid(8, 8) }),
+    //Setup should fetch initial game state from the game database
+    setup: () => ({
+        tokens:
+            [
+                [2, 2, 2, 2, 2, 2, 2, 2],
+                [2, 2, 2, 2, 2, 2, 2, 2],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 1, 1, 1, 1]
+            ],
+
+        movementPatterns:
+            [
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
+                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ]
+                
+            ],
+        possibleMoves:
+            []
+
+    }),
 
     turn: {
         minMoves: 1,
         maxMoves: 1,
+        onBegin: ({G, ctx}) => {
+            return {...G, possibleMoves: getAllPossibleMoves(G, ctx)};
+        },
     },
+    
 
     moves: {
-        move: ({ G, playerID }, from: GridPosition, to: GridPosition) => {
-            moveTo(from, to, G.tiles);
-//            const possibleMoves: GridPosition[] = getOptionsFromPos(from);
-//            if (!possibleMoves.includes(to)) {
-//                return INVALID_MOVE;
-//            }
-//            return;
+        move: ({ G, playerID }, moveDescription: MoveDescription) => {
+                        if (!G.possibleMoves.includes(moveDescription)) {
+                            return INVALID_MOVE;
+                        }
+                        return;
         }
     },
 };
