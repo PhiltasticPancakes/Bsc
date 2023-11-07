@@ -18,11 +18,11 @@ export const Editor = () => {
                 <TileTemplates />
                 <div className="sidebar">
                     {squares.map((square) => (
-                        <Template key={square.id} id={square.id} pattern={MovementDescription.Horse}/>
+                        <Template key={square.id} id={square.id} pattern={MovementDescription.Knight}/>
                     ))}
                 </div>
 
-                <Grid squares={squares.map((square) => <Template key={square.id} id={square.id} pattern={MovementDescription.Horse} />)} />
+                <Grid squares={squares.map((square) => <Template key={square.id} id={square.id} pattern={MovementDescription.Knight} />)} />
                 
             </div>
         </>

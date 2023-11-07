@@ -1,17 +1,18 @@
 import { Ctx } from "boardgame.io";
 import { BoardState, GridPosition, MoveDescription, PlayingBoard, Token, playerID } from "./PlayingBoard";
+import { cold } from "react-hot-loader";
 
 export type MovementPattern = (pos: GridPosition, grid: Token[][]) => GridPosition[];
 
 export enum MovementDescription {
-  Horse = "horse",
+  Knight = "knight",
   Castle = "castle",
   Bishop = "bishop",
   King = "king",
   Queen = "queen"
 }
 
-function horseMovement(pos: GridPosition, tokens: Token[][]): MoveDescription[] {
+function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   const knightMoveOffsets = [
     { row: -2, col: -1 },
     { row: -2, col: 1 },
@@ -23,27 +24,44 @@ function horseMovement(pos: GridPosition, tokens: Token[][]): MoveDescription[] 
     { row: 2, col: 1 },
   ];
 
-  let result: MoveDescription[] = [];
+  let result: GridPosition[] = [];
 
   let option: GridPosition;
 
   for (let offset of knightMoveOffsets) {
     option = { row: pos.row + offset.row, col: pos.col + offset.col };
     if (isWithinBounds(option, tokens)) {
-      result.push({ playerID: tokens[pos.row][pos.col] as playerID, from: pos, to: option });
+      result.push(option);
     }
   }
   return result;
 }
 
 
-function castleMovement(pos: GridPosition, tokens: Token[][]): MoveDescription[] {
-  let result: MoveDescription[] = [];
+
+function castleMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+  let result: GridPosition[] = [];
+  for (let i = 1; isWithinBounds({ row: pos.row + i, col: pos.col }, tokens); i++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (let i = 1; isWithinBounds({ row: pos.row - i, col: pos.col }, tokens); i++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (let i = 1; isWithinBounds({ row: pos.row, col: pos.col + i}, tokens); i++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (let i = 1; isWithinBounds({ row: pos.row, col: pos.col - i}, tokens); i++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
 
   return result;
 }
 
-function isWithinBounds(pos: GridPosition, tokens: Token[][]): boolean {
+const isWithinBounds = (pos: GridPosition, tokens: Token[][]): boolean => {
   let rowCount: number = tokens.length;
   let colCount: number = tokens[0].length;
   return pos.row >= 0 && pos.row < rowCount && pos.col >= 0 && pos.col < colCount
@@ -73,8 +91,11 @@ export const getAllPossibleMoves = (G: BoardState, ctx: Ctx): MoveDescription[] 
 const possibleMovesAtPos = ({ tokens, movementPatterns }: PlayingBoard, gridPos: GridPosition): MoveDescription[] => {
   //Parses the string description to a function call to collect possible moves
   let parsedFunction: string = movementPatterns[gridPos.row][gridPos.col] + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(tokens) + ")";
-  const reachablePositions: MoveDescription[] = eval(parsedFunction);
-  return reachablePositions;
+  const reachablePositions: GridPosition[] = eval(parsedFunction) as GridPosition[];
+  const possibleMoves: MoveDescription[] = reachablePositions.map(
+    (option: GridPosition) => ({ playerID: tokens[gridPos.row][gridPos.col], from: gridPos, to:  option} as MoveDescription)
+  );
+  return possibleMoves;
 }
 
 export const isMoveInOptions = (move: MoveDescription, options: MoveDescription[]) => {

@@ -21,14 +21,14 @@ export const Pluralic: Game<BoardState> = {
 
         movementPatterns:
             [
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ],
-                [MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse, MovementDescription.Horse,MovementDescription.Horse ]
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
+                [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ]
                 
             ],
         possibleMoves:
@@ -47,13 +47,11 @@ export const Pluralic: Game<BoardState> = {
 
     moves: {
         move: ({ G }, moveDescription: MoveDescription) => {
-                        console.log("move called with: " + JSON.stringify(moveDescription));
                         console.log(G.possibleMoves.length);
                         isMoveInOptions
                         if (!isMoveInOptions(moveDescription, G.possibleMoves)) {
                             return INVALID_MOVE;
                         }
-                        console.log("executing move: " + JSON.stringify(moveDescription));
                         doMove(moveDescription, G);
         }
     },
