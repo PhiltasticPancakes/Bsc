@@ -1,8 +1,8 @@
 import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
-import { BoardState,  } from '../../GameBoard/PlayingBoard';
+import { BoardState, doMove,  } from '../../GameBoard/PlayingBoard';
 import { MoveDescription } from '../../GameBoard/PlayingBoard';
-import { MovementDescription, getAllPossibleMoves } from '../../GameBoard/MovementsPatterns';
+import { MovementDescription, getAllPossibleMoves, isMoveInOptions } from '../../GameBoard/MovementsPatterns';
 
 export const Pluralic: Game<BoardState> = {
     //Setup should fetch initial game state from the game database
@@ -46,11 +46,15 @@ export const Pluralic: Game<BoardState> = {
     
 
     moves: {
-        move: ({ G, playerID }, moveDescription: MoveDescription) => {
-                        if (!G.possibleMoves.includes(moveDescription)) {
+        move: ({ G }, moveDescription: MoveDescription) => {
+                        console.log("move called with: " + JSON.stringify(moveDescription));
+                        console.log(G.possibleMoves.length);
+                        isMoveInOptions
+                        if (!isMoveInOptions(moveDescription, G.possibleMoves)) {
                             return INVALID_MOVE;
                         }
-                        return;
+                        console.log("executing move: " + JSON.stringify(moveDescription));
+                        doMove(moveDescription, G);
         }
     },
 };

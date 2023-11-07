@@ -8,6 +8,7 @@
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
+        "strictNullChecks": true,
         "allowSyntheticDefaultImports": true
     }
 }

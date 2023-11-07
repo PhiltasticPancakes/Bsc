@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { TileTemplates } from "./TileTemplates";
 import Grid from "./Grid";
 import Template from "./Template";
-import { castleMovement, horseMovement } from "../GameBoard/MovementsPatterns";
+import { MovementDescription } from "../GameBoard/MovementsPatterns";
 
 export const Editor = () => {
     const squares = [
-        { id: 'square1', pattern: horseMovement },
-        { id: 'square2', pattern: castleMovement },
+        { id: 'square1', pattern: "horse" },
+        { id: 'square2', pattern: "castle" },
         // Add more squares as needed
     ];
 
@@ -18,19 +18,13 @@ export const Editor = () => {
                 <TileTemplates />
                 <div className="sidebar">
                     {squares.map((square) => (
-                        <Template key={square.id} id={square.id} pattern={square.pattern}/>
+                        <Template key={square.id} id={square.id} pattern={MovementDescription.Horse}/>
                     ))}
                 </div>
-                <Grid squares={squares.map((square) => <Template key={square.id} id={square.id} pattern={square.pattern} />)} />
+
+                <Grid squares={squares.map((square) => <Template key={square.id} id={square.id} pattern={MovementDescription.Horse} />)} />
                 
             </div>
         </>
     );
-    return <>
-        <h1>This is the editor</h1>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-            <TileTemplates />
-            <Grid squares={[{ id: 1, color: 'green' }]} />
-        </div>
-    </>
 }

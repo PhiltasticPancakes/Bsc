@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GridPosition } from "./PlayingBoard";
 import { Token } from "./PlayingBoard";
 
-type TileProps = { gridPos: GridPosition, tile: Token, onClick: (gridPos: GridPosition) => void, highlight: boolean}
+type TileProps = { gridPos: GridPosition, token: Token | null, onClick: (gridPos: GridPosition) => void, highlight: boolean}
 
 export const Tile = (props: TileProps) => {
     return (
@@ -10,7 +10,7 @@ export const Tile = (props: TileProps) => {
             <button style={props.highlight? {color: 'Green'} : {}}
                 onClick={() => { props.onClick(props.gridPos)}}
             >
-                {props.tile}
+                {props.token}
             </button>
         </>
     )

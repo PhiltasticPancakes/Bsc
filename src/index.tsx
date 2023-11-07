@@ -20,10 +20,6 @@ render(
     </Routes>
 
     </BrowserRouter>
-    
     </DndProvider>
-
-
-
 
     , root);

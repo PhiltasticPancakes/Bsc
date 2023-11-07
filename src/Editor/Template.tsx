@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import { MovementPattern } from '../GameBoard/MovementsPatterns';
+import { MovementDescription} from '../GameBoard/MovementsPatterns';
 
 export type TemplateProps = {
     id: string;
-    pattern: MovementPattern;
+    pattern: MovementDescription;
 }
 
 const Template = ({ id, pattern }: TemplateProps) => {
