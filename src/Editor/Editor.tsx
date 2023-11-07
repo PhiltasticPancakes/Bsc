@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TileTemplates } from "./TileTemplates";
 import Grid from "./Grid";
 import Template from "./Template";
-import { MovementDescription } from "../GameBoard/MovementsPatterns";
+import { MovementDescription } from "../PlayingBoard/MovementsPatterns";
 
 export const Editor = () => {
     const squares = [

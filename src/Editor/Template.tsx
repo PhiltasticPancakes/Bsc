@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import { MovementDescription} from '../GameBoard/MovementsPatterns';
+import { MovementDescription} from '../PlayingBoard/MovementsPatterns';
 
 export type TemplateProps = {
     id: string;

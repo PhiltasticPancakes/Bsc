@@ -1,7 +1,7 @@
 
 import { Client } from 'boardgame.io/react';
 import { Pluralic } from './GameModes/Pluralic/Game'
-import { PlayingBoardComponent } from './GameBoard/PlayingBoard';
+import { PlayingBoardComponent } from './PlayingBoard/PlayingBoard';
 import { Container } from '@mui/material';
 import React from 'react';
 
