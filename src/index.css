@@ -58,6 +58,17 @@ main {
   align-items: center;
 }
 
+.editor {
+  display: flex;
+  gap: 10px;
+}
+
+.template-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 7vw;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

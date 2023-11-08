@@ -18,13 +18,13 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
     const clickedTile: Token | null = getTokenAtPos(gridPos);
     console.log("tile clicked: " + JSON.stringify(gridPos) + ": " + clickedTile);
 
-    if (clickedTile != null && clickedTile - 1 + "" == ctx.currentPlayer) {
+    if (clickedTile != null && Number(clickedTile) - 1 + "" == ctx.currentPlayer) {
       setSelected(gridPos);
       return;
     };
 
     //should do move
-    if (selected && (clickedTile == null || clickedTile - 1 + "" != ctx.currentPlayer)) {
+    if (selected && (clickedTile == null || Number(clickedTile) - 1 + "" != ctx.currentPlayer)) {
       moves.move({ playerID: Number(ctx.currentPlayer), from: selected, to: gridPos });
       setSelected(null);
       return;

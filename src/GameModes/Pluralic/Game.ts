@@ -8,14 +8,14 @@ export const Pluralic: Game<PlayingBoard> = {
     setup: () => ({
         tokens:
             [
-                [2, 2, 2, 2, 2, 2, 2, 2],
-                [2, 2, 2, 2, 2, 2, 2, 2],
+                ["2", "2", "2", "2", "2", "2", "2", "2"],
+                ["2", "2", "2", "2", "2", "2", "2", "2"],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
-                [1, 1, 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1]
+                ["1", "1", "1", "1", "1", "1", "1", "1"],
+                ["1", "1", "1", "1", "1", "1", "1", "1"]
             ],
 
         movementPatterns:

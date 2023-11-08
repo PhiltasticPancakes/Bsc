@@ -11,7 +11,7 @@ export type MoveDescription = {
 
 
 export type Token = playerID
-export type playerID = number;
+export type playerID = string;
 
 export enum MovementDescription {
   Knight = "knight",

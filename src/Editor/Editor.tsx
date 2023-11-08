@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TileTemplates } from "./TileTemplates";
 import { EditingBoard } from "./EditingBoard";
 import { createMovementGrid, createTokenGrid } from "../Board";
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string }
 
@@ -13,7 +12,7 @@ export const Editor = (props: EditorProps) => {
     return (
         <>
         <h1>{props.gameName}</h1>
-        <div style={{ display: 'flex' }}>
+        <div className="editor">
             <TileTemplates/>
             <EditingBoard tokens={tokens} movementPatterns={movements} />
         </div>
