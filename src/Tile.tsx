@@ -86,7 +86,7 @@ const EditingTileWrapper = (props: TileProps) => {
     });
 
     return (
-        <div ref={drop}>
+        <div style={{height: 'fit-content'}} ref={drop}>
             <Tile {...props} />
         </div>
     )
