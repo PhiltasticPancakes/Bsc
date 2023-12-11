@@ -9,8 +9,6 @@ const GameClient = Client({ game: Pluralic, board: PlayingBoardComponent });
 
 export const ClientComponent = () => {
     return (
-        <Container>
             <GameClient/>
-        </Container>
     )
 }

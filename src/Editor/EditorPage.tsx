@@ -20,7 +20,7 @@ export const EditorPage = () => {
                 <FormLabel>Enter GameName</FormLabel>
                 <TextField value={name} onChange={ e => setName(e.target.value)}></TextField>
 
-                <Button type="submit" variant="contained" onClick={() => {setReady(width > 0 && height > 0 && !!name)}}>Submit</Button>
+                <Button type="submit" variant="contained" onClick={() => {setReady(width > 0 && height > 0 && !!name)}}>Create Game</Button>
             </FormControl>
 
 
@@ -28,9 +28,9 @@ export const EditorPage = () => {
     )
 
     return(
-        <Container>
+<>
             {(ready)? <Editor rowCount={width} colCount={height} gameName={name}/> : sizePicker}
-        </Container>
+</>
         );
 
 }

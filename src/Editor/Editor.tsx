@@ -8,7 +8,11 @@ export type EditorProps = { rowCount: number, colCount: number, gameName: string
 export const Editor = (props: EditorProps) => {
     const [tokens, setTokens] = useState(createTokenGrid(props.rowCount, props.colCount));
     const [movements, setMovements] = useState(createMovementGrid(props.rowCount, props.colCount))
+    const [selectedTokenTemplate, setSelectedTokenTemplate] = useState(null);
 
+    const clickHandler = () => {
+
+    }
 
     return (
         <>
