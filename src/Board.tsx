@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import { MovementDescription, Token, compareGridPositions, playerID } from "./PlayingBoard/MovementsPatterns";
-import { useDrop } from "react-dnd";
 import { TileComponent } from "./Tile";
 
 export type Board = { tokens: TokenGrid, movementPatterns: MovementDescriptionGrid }

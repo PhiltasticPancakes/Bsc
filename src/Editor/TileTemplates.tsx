@@ -5,11 +5,12 @@ import { TileComponent } from "../Tile";
 
 
 export const TileTemplates = () => {
+  
   return (
     <div className="template-container">
       {(Object.keys(MovementDescription) as (keyof typeof MovementDescription)[]).map(
         (md) => (
-          <TileComponent key={md} movementPattern={MovementDescription[md]} tileType="template" token={null} gridPos={{row: 0, col: 0}}/>
+          <TileComponent key={md} movementPattern={MovementDescription[md]} tileType="template" token={md} gridPos={{row: 0, col: 0}}/>
         )
       )}
     </div>

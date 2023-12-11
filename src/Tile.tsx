@@ -1,4 +1,4 @@
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { MovementDescription, Token, playerID } from "./PlayingBoard/MovementsPatterns";
 import React from "react";
 import { GridPosition } from "./Board";
@@ -11,6 +11,8 @@ type BaseTileType = {
     isSelected?: boolean,
     isHighlighted?: boolean,
     handleClick?: (gridPos: GridPosition) => void,
+    onDragDropped?: any;
+
     movementPattern: MovementDescription,
     gridPos: GridPosition,
     token: string | null,
@@ -60,23 +62,31 @@ export const TileComponent = (props: TileProps) => {
             return (<EditingTileWrapper {...props} />)
     }
 }
+
 const TemplateTileWrapper = (props: TileProps) => {
-    const [, drop] = useDrop({
-        accept: 'Template',
-        drop: (item: any) => {
-            // Handle the drop event here
-            console.log(`Dropped square ${item.id}`);
-        },
+    const [, drop] = useDrag({
+        type: 'Template',
+        item: props,
     });
 
     return (
-        <Tile {...props} />
+        <div ref = {drop}>
+            <Tile {...props} />
+        </div>
     )
 }
 
 const EditingTileWrapper = (props: TileProps) => {
+    const [, drop] = useDrop({
+        accept: 'Template',
+        drop: (item: TemplateTileProps) => {
+            // Handle the drop event here
+            console.log(`Dropped square ${item.token}`);
+        },
+    });
+
     return (
-        <div className="editing-tile">
+        <div ref={drop}>
             <Tile {...props} />
         </div>
     )
@@ -85,9 +95,6 @@ const EditingTileWrapper = (props: TileProps) => {
 const PlayingTileWrapper = (props: TileProps) => {
     return <Tile {...props} />
 }
-
-
-
 
 const TokenComponent = (props: TokenComponentProps) => {
     return <span>{props.playerID}</span>
