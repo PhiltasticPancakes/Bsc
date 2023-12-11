@@ -29,7 +29,7 @@ export const EditorPage = () => {
 
     return(
 <>
-            {(ready)? <Editor rowCount={width} colCount={height} gameName={name}/> : sizePicker}
+            {(ready)? <Editor rowCount={height} colCount={width} gameName={name}/> : sizePicker}
 </>
         );
 
