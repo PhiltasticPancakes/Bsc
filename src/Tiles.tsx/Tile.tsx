@@ -75,6 +75,8 @@ const mapTileToColor = (tileType: MovementDescription) => {
             return 'green'
         case MovementDescription.Queen:
             return 'purple'
+        case MovementDescription.King:
+            return 'yellow'
     }
 }
 

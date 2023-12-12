@@ -5,6 +5,9 @@ import { GridPosition, createMovementGrid, createTokenGrid } from "../Board";
 import { TokenTemplates } from "./TokenTemplates";
 import { MovementDescription, playerID } from "../PlayingBoard/MovementsPatterns";
 import { EditorTileProps } from "../Tiles.tsx/Tile";
+import { Button } from "@mui/material";
+import { Game } from "boardgame.io";
+import { PlayingBoard } from "../PlayingBoard/PlayingBoard";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string }
 
@@ -37,9 +40,23 @@ export const Editor = (props: EditorProps) => {
         }
     }
 
+    const onSaveClicked = () => {
+        const newGame: PlayingBoard = {
+            tokens: tokens,
+            tiles: tiles,
+            possibleMoves: []
+        }
+
+        localStorage.setItem('game_'+props.gameName, JSON.stringify(newGame));
+    }
+
     return (
         <>
-        <h1>{props.gameName} selected token {selectedTokenTemplate}</h1>
+        <div style={{display:"flex", justifyContent:"space-around"}}>
+            <h1>{props.gameName}</h1>
+            <h1> Selected token: {selectedTokenTemplate}</h1>
+            <Button onClick={() => onSaveClicked()}> Save </Button>
+        </div>
         <div className="editor">
             <TileTemplates/>
             <EditingBoard tokens={tokens} tiles={tiles} clickHandler={onBoardTileClicked} onDragDropped={onDragDropped}/>

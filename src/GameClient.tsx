@@ -62,7 +62,9 @@ const gameWithSetupData = (setupData: PlayingBoard): Game<PlayingBoard> => ({
     },
 });
 
+const makeGame = (setup: PlayingBoard) => {
 
+}
 
 const GameClient = Client({ game: gameWithSetupData(pluralicSetupData), board: PlayingBoardComponent });
 
@@ -72,3 +74,4 @@ export const ClientComponent = () => {
         <GameClient />
     )
 }
+
