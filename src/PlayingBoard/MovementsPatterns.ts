@@ -77,19 +77,19 @@ function bishopMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   let result: GridPosition[] = [];
   let i, j;
   for (i = 1, j = 1; isWithinBounds({ row: pos.row + i, col: pos.col + j }, tokens); i++, j++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row + i, col: pos.col +i };
     result.push(option);
   }
   for (i = 1, j = 1; isWithinBounds({ row: pos.row - i, col: pos.col - j }, tokens); i++, j++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row - i, col: pos.col -j };
     result.push(option);
   }
   for (i = 1, j = 1; isWithinBounds({ row: pos.row + i, col: pos.col - j }, tokens); i++, j++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row + i, col: pos.col - j};
     result.push(option);
   }
   for (i = 1, j = 1; isWithinBounds({ row: pos.row - i, col: pos.col + j }, tokens); i++, j++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row - i, col: pos.col + j };
     result.push(option);
   }
 
@@ -103,15 +103,15 @@ function rookMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
     result.push(option);
   }
   for (let i = 1; isWithinBounds({ row: pos.row - i, col: pos.col }, tokens); i++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row - i, col: pos.col };
     result.push(option);
   }
   for (let i = 1; isWithinBounds({ row: pos.row, col: pos.col + i}, tokens); i++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row, col: pos.col + i };
     result.push(option);
   }
   for (let i = 1; isWithinBounds({ row: pos.row, col: pos.col - i}, tokens); i++) {
-    let option = {row: pos.row + i, col: pos.col };
+    let option = {row: pos.row + i, col: pos.col -i};
     result.push(option);
   }
 
@@ -120,6 +120,10 @@ function rookMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
 
 function queenMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   return [...rookMovement(pos, tokens), ...bishopMovement(pos, tokens)]
+}
+
+function noneMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+  return [];
 }
 
 const isWithinBounds = (pos: GridPosition, tokens: Token[][]): boolean => {

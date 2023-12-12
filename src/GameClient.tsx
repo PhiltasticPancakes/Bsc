@@ -38,6 +38,7 @@ const pluralicSetupData = ({
 
 });
 
+
 const gameWithSetupData = (setupData: PlayingBoard): Game<PlayingBoard> => ({
     setup: () => (
         setupData
@@ -62,14 +63,10 @@ const gameWithSetupData = (setupData: PlayingBoard): Game<PlayingBoard> => ({
     },
 });
 
-const makeGame = (setup: PlayingBoard) => {
-
-}
-
-const GameClient = Client({ game: gameWithSetupData(pluralicSetupData), board: PlayingBoardComponent });
+export const ClientComponent = (gameSetup: PlayingBoard) => {
+    const GameClient = Client({ game: gameWithSetupData(gameSetup), board: PlayingBoardComponent });
 
 
-export const ClientComponent = () => {
     return (
         <GameClient />
     )
