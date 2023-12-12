@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import { MovementDescription, Token, compareGridPositions, playerID } from "./PlayingBoard/MovementsPatterns";
-import { TileComponent } from "./Tile";
+import { TileComponent } from "./Tiles.tsx/Tile";
 
-export type Board = { tokens: TokenGrid, movementPatterns: MovementDescriptionGrid }
+export type Board = { tokens: TokenGrid, tiles: MovementDescriptionGrid }
 
 export type GridPosition = {
     row: number;
@@ -10,10 +10,10 @@ export type GridPosition = {
 };
 
 type MovementDescriptionGrid = (MovementDescription)[][];
-type TokenGrid = (Token | null)[][];
+export type TokenGrid = (Token | null)[][];
 
 
-type BoardComponentProps = Board & { editing?: boolean, handleClick?: (pos: GridPosition) => void, selectedTile: GridPosition | null, highlightedTiles: GridPosition[] };
+type BoardComponentProps = Board & {onDragDropped?: any, editing?: boolean, handleClick?: (pos: GridPosition) => void, selectedTile: GridPosition | null, highlightedTiles: GridPosition[] };
 
 
 
@@ -27,16 +27,17 @@ export const BoardComponent = (props: BoardComponentProps) => {
                 {props.tokens.map((row, rowNum) => (
                     row.map((token, colNum) => {
                         const pos: GridPosition = { row: rowNum, col: colNum };
-                        const movement: MovementDescription = props.movementPatterns[rowNum][colNum];
+                        const movement: MovementDescription = props.tiles[rowNum][colNum];
                         return (
                             <TileComponent
                                 tileType={props.editing ? "editor" : "playing"}
                                 isSelected={props.selectedTile != null && compareGridPositions(pos, props.selectedTile)}
                                 key={rowNum + "," + colNum}
                                 handleClick={props.handleClick}
+                                onDragDropped={props.onDragDropped}
                                 gridPos={pos}
                                 token={token}
-                                movementPattern={movement}
+                                movementDescription={movement}
                             />)
 
                     }

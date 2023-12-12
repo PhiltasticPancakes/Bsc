@@ -5,18 +5,22 @@ import { MoveDescription } from "../PlayingBoard/MovementsPatterns";
 
 export type EditingBoardProps = Board &
     {
+        clickHandler: any;
+        onDragDropped: any;
     };
 
 export const EditingBoard = (props: EditingBoardProps) => {
     return (
         <>
             <BoardComponent
-                
+                handleClick= {props.clickHandler}
                 editing={true}
                 tokens={props.tokens}
-                movementPatterns={props.movementPatterns}
+                tiles={props.tiles}
                 selectedTile={null}
-                highlightedTiles={[]} />
+                highlightedTiles={[]}
+                onDragDropped={props.onDragDropped}
+                 />
         </>
     )
 }

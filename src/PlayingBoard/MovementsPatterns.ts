@@ -1,7 +1,6 @@
 import { Ctx } from "boardgame.io";
 import { Board, GridPosition } from "../Board";
 
-export type MovementPattern = (pos: GridPosition, grid: Token[][]) => GridPosition[];
 
 export type MoveDescription = {
   playerID: playerID;
@@ -47,9 +46,57 @@ function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   return result;
 }
 
+function kingMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+  const kingMoveOffsets = [
+    { row: -1, col: -1 },
+    { row: -1, col: 1 },
+    { row: -1, col: 0 },
+    { row: 1, col: 1 },
+    { row: 1, col: -1 },
+    { row: 1, col: 0 },
+    { row: 0, col: -1 },
+    { row: 0, col: 1 },
+    { row: 0, col: 1 },
+  ];
+
+  let result: GridPosition[] = [];
+
+  let option: GridPosition;
+
+  for (let offset of kingMoveOffsets) {
+    option = { row: pos.row + offset.row, col: pos.col + offset.col };
+    if (isWithinBounds(option, tokens)) {
+      result.push(option);
+    }
+  }
+  return result;
+}
 
 
-function castleMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+function bishopMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+  let result: GridPosition[] = [];
+  let i, j;
+  for (i = 1, j = 1; isWithinBounds({ row: pos.row + i, col: pos.col + j }, tokens); i++, j++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (i = 1, j = 1; isWithinBounds({ row: pos.row - i, col: pos.col - j }, tokens); i++, j++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (i = 1, j = 1; isWithinBounds({ row: pos.row + i, col: pos.col - j }, tokens); i++, j++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+  for (i = 1, j = 1; isWithinBounds({ row: pos.row - i, col: pos.col + j }, tokens); i++, j++) {
+    let option = {row: pos.row + i, col: pos.col };
+    result.push(option);
+  }
+
+  return result;
+}
+
+function rookMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   let result: GridPosition[] = [];
   for (let i = 1; isWithinBounds({ row: pos.row + i, col: pos.col }, tokens); i++) {
     let option = {row: pos.row + i, col: pos.col };
@@ -71,6 +118,10 @@ function castleMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   return result;
 }
 
+function queenMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
+  return [...rookMovement(pos, tokens), ...bishopMovement(pos, tokens)]
+}
+
 const isWithinBounds = (pos: GridPosition, tokens: Token[][]): boolean => {
   let rowCount: number = tokens.length;
   let colCount: number = tokens[0].length;
@@ -88,6 +139,9 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 
   for (let i = 0; i < rowCount; i++) {
     for (let j = 0; j < colCount; j++) {
+      if(!G.tokens[i][j]) {
+        continue;
+      }
       pos = { row: i, col: j };
       optionsAtPos = possibleMovesAtPos(G, pos);
       allPossibleMoves.push(...optionsAtPos);
@@ -98,7 +152,7 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 }
 
 
-const possibleMovesAtPos = ({ tokens, movementPatterns }: Board, gridPos: GridPosition): MoveDescription[] => {
+const possibleMovesAtPos = ({ tokens, tiles: movementPatterns }: Board, gridPos: GridPosition): MoveDescription[] => {
   //Parses the string description to a function call to collect possible moves
   let parsedFunction: string = movementPatterns[gridPos.row][gridPos.col] + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(tokens) + ")";
 

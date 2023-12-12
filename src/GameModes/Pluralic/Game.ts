@@ -18,7 +18,7 @@ export const Pluralic: Game<PlayingBoard> = {
                 ["1", "1", "1", "1", "1", "1", "1", "1"]
             ],
 
-        movementPatterns:
+        tiles:
             [
                 [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
                 [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight,MovementDescription.Knight ],
@@ -47,7 +47,6 @@ export const Pluralic: Game<PlayingBoard> = {
     moves: {
         move: ({ G }, moveDescription: MoveDescription) => {
                         console.log(G.possibleMoves.length);
-                        isMoveInOptions
                         if (!isMoveInOptions(moveDescription, G.possibleMoves)) {
                             return INVALID_MOVE;
                         }

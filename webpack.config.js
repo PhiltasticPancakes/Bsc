@@ -31,7 +31,7 @@ module.exports = {
   },
   resolve: {
     fullySpecified: false,
-    extensions: ['.ts', '.js', '.json', '.tsx', 'css']
+    extensions: ['.ts', '.js', '.json', '.tsx', '.css']
   },
   devServer: {
     historyApiFallback: true,

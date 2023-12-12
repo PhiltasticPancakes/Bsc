@@ -39,7 +39,7 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   return (
       <BoardComponent
         tokens={G.tokens}
-        movementPatterns={G.movementPatterns}
+        tiles={G.tiles}
         handleClick={handleOnTileClicked}
         selectedTile={selected}
         highlightedTiles={[]} />

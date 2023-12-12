@@ -91,6 +91,20 @@ main {
   flex-direction: column;
   min-width: 7vw;
   height: 100%;
+  overflow-y: scroll;
+  row-gap: 3px;
+}
+
+.dot {
+  width: 100%;
+  min-width: 25px;
+  aspect-ratio: 1 / 1;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 75%;
 }
 
 code {
