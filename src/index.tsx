@@ -7,6 +7,8 @@ import './index.css';
 import { Home } from "./home";
 import { EditorPage } from "./Editor/EditorPage";
 import { PlayPage } from "./PlayPage";
+import { Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const root = document.getElementById("root");
 render(
@@ -14,17 +16,20 @@ render(
 
         <DndProvider backend={HTML5Backend}>
             <BrowserRouter>
-                <main>
-                    <div className="container">
+                <div className="page-wrapper">
 
+                    <header>
+                        <Button size="large" component={Link} to={'/'} variant="outlined"> <Typography>Home</Typography> </Button>
+                    </header>
+                    <main>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/play" element={<PlayPage />} />
                             <Route path="/edit" element={<EditorPage />} />
                         </Routes>
-                    </div>
-                </main>
+                    </main>
 
+                </div>
             </BrowserRouter>
         </DndProvider>
 

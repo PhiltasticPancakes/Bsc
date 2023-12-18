@@ -13,7 +13,7 @@ type MovementDescriptionGrid = (MovementDescription)[][];
 export type TokenGrid = (Token | null)[][];
 
 
-type BoardComponentProps = Board & {onDragDropped?: any, editing?: boolean, handleClick?: (pos: GridPosition) => void, selectedTile: GridPosition | null, highlightedTiles: GridPosition[] };
+type BoardComponentProps = Board & { onDragDropped?: any, editing?: boolean, handleClick?: (pos: GridPosition) => void, selectedTile: GridPosition | null, highlightedTiles: GridPosition[] };
 
 
 
@@ -21,8 +21,7 @@ export const BoardComponent = (props: BoardComponentProps) => {
     const gridLayout = { gridTemplateColumns: "repeat(" + props.tokens[0].length + ", 1fr)" };
 
     return (
-        <div className="boardWrapper">
-
+        <div className="board-wrapper">
             <div className="board" style={gridLayout}>
                 {props.tokens.map((row, rowNum) => (
                     row.map((token, colNum) => {
