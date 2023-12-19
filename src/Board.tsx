@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { MovementDescription, Token, compareGridPositions } from "./PlayingBoard/BoardMovement";
 import { EditingTileComponent, PlayingTileComponent } from "./Tiles.tsx/Tile";
 
@@ -12,6 +12,7 @@ export type GridPosition = {
 export type Tile = {
     movementDescription: MovementDescription;
 }
+
 type TileGrid = (Tile)[][];
 export type TokenGrid = (Token | null)[][];
 

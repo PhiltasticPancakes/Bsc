@@ -3,7 +3,7 @@ import { TileTemplates } from "./TileTemplates";
 import { EditingBoard } from "./EditingBoard";
 import { GridPosition, Tile, createTileGrid, createTokenGrid } from "../Board";
 import { TokenTemplates } from "./TokenTemplates";
-import { MovementDescription, Token } from "../PlayingBoard/BoardMovement";
+import { Token } from "../PlayingBoard/BoardMovement";
 import { Button } from "@mui/material";
 import { GameDefinition } from "../PlayingBoard/PlayingBoard";
 

@@ -135,7 +135,7 @@ const isWithinBounds = (pos: GridPosition, tokens: Token[][]): boolean => {
 export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
   let rowCount: number = G.tokens.length;
   let colCount: number = G.tokens[0].length;
-  let optionsAtPos: MoveDescription[] = []
+  let optionsAtPos: MoveDescription[] = [];
 
   let pos: GridPosition;
 
@@ -156,9 +156,9 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 }
 
 
-const possibleMovesAtPos = ({ tokens, tiles: movementPatterns }: Board, gridPos: GridPosition): MoveDescription[] => {
+const possibleMovesAtPos = ({ tokens, tiles: tiles }: Board, gridPos: GridPosition): MoveDescription[] => {
   //Parses the string description to a function call to collect possible moves
-  let parsedFunction: string = movementPatterns[gridPos.row][gridPos.col] + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(tokens) + ")";
+  let parsedFunction: string = tiles[gridPos.row][gridPos.col].movementDescription + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(tokens) + ")";
 
   //Error prone implementation, use function to return correct movementpattern from string
   const reachablePositions: GridPosition[] = eval(parsedFunction) as GridPosition[];
