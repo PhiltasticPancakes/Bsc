@@ -1,4 +1,5 @@
-import { playerID } from "../PlayingBoard/MovementsPatterns"
+import React from "react";
+import { playerID } from "../PlayingBoard/BoardMovement"
 
 export type TokenProps = {
     type: string;

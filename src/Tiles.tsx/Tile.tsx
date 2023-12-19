@@ -1,8 +1,8 @@
 import { useDrag, useDrop } from "react-dnd";
-import { MovementDescription, playerID } from "../PlayingBoard/MovementsPatterns";
+import { MovementDescription, playerID } from "../PlayingBoard/BoardMovement";
 import React from "react";
 import { GridPosition } from "../Board";
-import { OmniToken } from "../Tokens/Omni";
+import { OmatiToken } from "../Tokens/OmatiToken";
 
 type TokenComponentProps = { playerID: playerID | null };
 
@@ -48,7 +48,7 @@ const Tile = (props: TileProps) => {
             }}
         >
             {props.token ?
-                <OmniToken type={"playing"} playerID={props.token} />
+                <OmatiToken type={"playing"} playerID={props.token} />
                 : null}
         </div>
     )
@@ -128,7 +128,7 @@ const EditingTileWrapper = (props: EditorTileProps) => {
             }}
         >
             {props.token ?
-                <OmniToken type={"playing"} playerID={props.token} />
+                <OmatiToken type={"playing"} playerID={props.token} />
                 : null}
         </div>
     )
@@ -151,7 +151,7 @@ const PlayingTileWrapper = (props: PlayingTileProps) => {
             }}
         >
             {props.token ?
-                <OmniToken type={"playing"} playerID={props.token} />
+                <OmatiToken type={"playing"} playerID={props.token} />
                 : null}
         </div>
     )

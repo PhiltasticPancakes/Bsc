@@ -2,7 +2,7 @@ import React from "react";
 import { TokenProps } from "./Tokens";
 import { useDrag } from "react-dnd";
 
-export const OmniToken = (props: TokenProps) => {
+export const OmatiToken = (props: TokenProps) => {
     return (
         props.type == 'template' ?
             <div onClick={() => props.clickHandler(props.playerID)}>

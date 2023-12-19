@@ -3,54 +3,28 @@ import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { Client } from 'boardgame.io/react';
 
-import { PlayingBoard, PlayingBoardComponent, doMove } from './PlayingBoard/PlayingBoard';
+import { GameDefinition, PlayingBoardComponent, doMove, PlayingBoardState } from './PlayingBoard/PlayingBoard';
 import React from 'react';
-import { MoveDescription, MovementDescription, getAllPossibleMoves, isMoveInOptions } from './PlayingBoard/MovementsPatterns';
+import { MoveDescription, MovementDescription, getAllPossibleMoves, isMoveInOptions } from './PlayingBoard/BoardMovement';
 
 
-const pluralicSetupData = ({
-    tokens:
-        [
-            ["2", "2", "2", "2", "2", "2", "2", "2"],
-            ["2", "2", "2", "2", "2", "2", "2", "2"],
-            [null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null],
-            ["1", "1", "1", "1", "1", "1", "1", "1"],
-            ["1", "1", "1", "1", "1", "1", "1", "1"]
-        ],
+const gameWithSetupData = (setupData: GameDefinition): Game<PlayingBoardState> => ({
+    setup: () => ({
+        ...setupData.initialBoard,
+        possibleMoves : []}
 
-    tiles:
-        [
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight],
-            [MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight, MovementDescription.Knight]
-
-        ],
-    possibleMoves:
-        []
-
-});
-
-
-const gameWithSetupData = (setupData: PlayingBoard): Game<PlayingBoard> => ({
-    setup: () => (
-        setupData
     ),
 
     turn: {
-        minMoves: 1,
-        maxMoves: 1,
+        minMoves: setupData.moveCount,
+        maxMoves: setupData.moveCount,
         onBegin: ({ G, ctx }) => {
             return { ...G, possibleMoves: getAllPossibleMoves(G, ctx) };
         },
     },
+
+    minPlayers: setupData.playerCount,
+    maxPlayers: setupData.playerCount,
 
     moves: {
         move: ({ G }, moveDescription: MoveDescription) => {
@@ -63,7 +37,7 @@ const gameWithSetupData = (setupData: PlayingBoard): Game<PlayingBoard> => ({
     },
 });
 
-export const ClientComponent = (gameSetup: PlayingBoard) => {
+export const ClientComponent = (gameSetup: GameDefinition) => {
     const GameClient = Client({ game: gameWithSetupData(gameSetup), board: PlayingBoardComponent });
 
 

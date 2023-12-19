@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { MovementDescription, Token, compareGridPositions, playerID } from "./PlayingBoard/MovementsPatterns";
+import { MovementDescription, Token, compareGridPositions, playerID } from "./PlayingBoard/BoardMovement";
 import { TileComponent } from "./Tiles.tsx/Tile";
 
 export type Board = { tokens: TokenGrid, tiles: MovementDescriptionGrid }

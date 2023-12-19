@@ -2,39 +2,43 @@ import { Button, Container, FormControl, FormLabel, TextField } from "@mui/mater
 import React, { useState } from "react";
 import { ClientComponent } from "./GameClient";
 import { setup } from "./GameModes/Pluralic/Setup";
-import { PlayingBoard } from "./PlayingBoard/PlayingBoard";
+import { GameDefinition, PlayingBoardState } from "./PlayingBoard/PlayingBoard";
+import { green } from "@mui/material/colors";
 
 type GameListItemProps = {
-    gameName: string
+    game: GameDefinition;
 }
 
-
+const getGameList = (): GameDefinition[] => {
+    const gameList: GameDefinition[] = [];
+    for (const gameName in localStorage) {
+        if (gameName.startsWith("game_")) {
+            gameList.push(JSON.parse(localStorage[gameName]));
+        }
+    }
+    return gameList;
+}
 
 export const PlayPage = () => {
-    const [game, selectGame] = useState<PlayingBoard | null>(null);
+    const [game, selectGame] = useState<GameDefinition | null>(null);
 
     const GameListItem = (props: GameListItemProps) => {
         return (
-            <button onClick={() => selectGame(JSON.parse(localStorage[props.gameName]))}>
-                {props.gameName}
+            <button onClick={() => selectGame(props.game)}>
+                {props.game.gameName}
             </button>
         )
     }
 
     const GameModePicker = () => {
-        const gameList: string[] = ['pluralic'];
+        const gameList: GameDefinition[] = getGameList();
 
-        for (const g in localStorage) {
-            if (g.startsWith("game_")) {
-                gameList.push(g);
-            }
 
-        }
-
+        const gameNames: string[] = gameList.map((g) => g.gameName);
         return (
 
             <div style={{ display: "flex", flexDirection: "column" }}>
-                {gameList.map((g) => <GameListItem key={g} gameName={g} />
+                {gameList.map((g) => <GameListItem key={g.gameName} game={g} />
 
                 )}
             </div>

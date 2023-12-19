@@ -1,4 +1,4 @@
-import { MovementDescription } from "../../PlayingBoard/MovementsPatterns";
+import { MovementDescription } from "../../PlayingBoard/BoardMovement";
 
 export const setup = {
     tokens:

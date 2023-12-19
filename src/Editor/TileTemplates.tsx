@@ -1,5 +1,5 @@
 import React from "react"
-import { MovementDescription } from "../PlayingBoard/MovementsPatterns"
+import { MovementDescription } from "../PlayingBoard/BoardMovement"
 import { useDrag } from "react-dnd";
 import { TileComponent } from "../Tiles.tsx/Tile";
 

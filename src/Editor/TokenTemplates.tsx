@@ -1,8 +1,8 @@
 import React from "react"
-import { MovementDescription } from "../PlayingBoard/MovementsPatterns"
+import { MovementDescription } from "../PlayingBoard/BoardMovement"
 import { useDrag } from "react-dnd";
 import { TileComponent } from "../Tiles.tsx/Tile";
-import { OmniToken } from "../Tokens/Omni";
+import { OmatiToken } from "../Tokens/OmatiToken";
 
 type TokenTemplatesProps = {
     clickHandler: any;
@@ -11,8 +11,8 @@ type TokenTemplatesProps = {
 export const TokenTemplates = (props: TokenTemplatesProps) => {
   return (
     <div className="template-container">
-          <OmniToken playerID="0" type='template' clickHandler={props.clickHandler}/>
-          <OmniToken playerID="1" type='template' clickHandler={props.clickHandler}/>
+          <OmatiToken playerID="0" type='template' clickHandler={props.clickHandler}/>
+          <OmatiToken playerID="1" type='template' clickHandler={props.clickHandler}/>
     </div>
   )
 }

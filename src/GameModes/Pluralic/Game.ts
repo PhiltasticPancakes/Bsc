@@ -1,9 +1,9 @@
 import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
-import { MoveDescription, MovementDescription, getAllPossibleMoves, isMoveInOptions } from '../../PlayingBoard/MovementsPatterns';
-import { PlayingBoard, doMove } from '../../PlayingBoard/PlayingBoard';
+import { MoveDescription, MovementDescription, getAllPossibleMoves, isMoveInOptions } from '../../PlayingBoard/BoardMovement';
+import { PlayingBoardState, doMove } from '../../PlayingBoard/PlayingBoard';
 
-export const Pluralic: Game<PlayingBoard> = {
+export const Pluralic: Game<PlayingBoardState> = {
     //Setup should fetch initial game state from the game database
     setup: () => ({
         tokens:
