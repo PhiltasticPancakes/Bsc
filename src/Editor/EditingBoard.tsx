@@ -11,7 +11,7 @@ export type EditingBoardProps = Board &
 
 export const EditingBoard = (props: EditingBoardProps) => {
     return (
-        <>
+
             <BoardComponent
                 handleClick= {props.clickHandler}
                 editing={true}
@@ -21,6 +21,5 @@ export const EditingBoard = (props: EditingBoardProps) => {
                 highlightedTiles={[]}
                 onDragDropped={props.onDragDropped}
                  />
-        </>
     )
 }

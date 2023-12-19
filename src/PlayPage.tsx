@@ -15,7 +15,7 @@ export const PlayPage = () => {
 
     const GameListItem = (props: GameListItemProps) => {
         return (
-            <button style={{minHeight: "40px"}} onClick={() => selectGame(JSON.parse( localStorage[props.gameName]))}>
+            <button onClick={() => selectGame(JSON.parse(localStorage[props.gameName]))}>
                 {props.gameName}
             </button>
         )
@@ -24,8 +24,8 @@ export const PlayPage = () => {
     const GameModePicker = () => {
         const gameList: string[] = ['pluralic'];
 
-        for(const g in localStorage) {
-            if(g.startsWith("game_")) {
+        for (const g in localStorage) {
+            if (g.startsWith("game_")) {
                 gameList.push(g);
             }
 
@@ -33,21 +33,24 @@ export const PlayPage = () => {
 
         return (
 
-            <div style={{display:"flex", flexDirection:"column"}}>
-                {gameList.map( (g) => <GameListItem key={g} gameName={g}/>
-                
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {gameList.map((g) => <GameListItem key={g} gameName={g} />
+
                 )}
             </div>
-        
+
         )
-        
+
     }
 
+    const content = game ?
+        <ClientComponent {...game} />
+        :
+        <GameModePicker />
+
     return (
-        game ?
-            <ClientComponent {...game} />
-            :
-            <GameModePicker />
-    )
+        <div className="play-page">
+            {content}
+        </div>   )
 
 }

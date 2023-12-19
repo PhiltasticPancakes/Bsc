@@ -116,6 +116,16 @@ main {
   gap: 10px;
 }
 
+.play-page {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .template-container {
   display: flex;
   flex-direction: column;
@@ -123,6 +133,10 @@ main {
   height: 100%;
   overflow-y: scroll;
   row-gap: 3px;
+}
+
+.bgio-client {
+  flex-grow: 1;
 }
 
 
