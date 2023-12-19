@@ -1,7 +1,6 @@
 import { Button, Container, FormControl, FormLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { ClientComponent } from "./GameClient";
-import { setup } from "./GameModes/Pluralic/Setup";
 import { GameDefinition, PlayingBoardState } from "./PlayingBoard/PlayingBoard";
 import { green } from "@mui/material/colors";
 

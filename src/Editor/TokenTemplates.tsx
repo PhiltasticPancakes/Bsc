@@ -1,18 +1,17 @@
 import React from "react"
-import { MovementDescription } from "../PlayingBoard/BoardMovement"
-import { useDrag } from "react-dnd";
-import { TileComponent } from "../Tiles.tsx/Tile";
-import { OmatiToken } from "../Tokens/OmatiToken";
+import { TemplateTokenComponent } from "../Tokens/Tokens";
+import { Template, TokenTemplate } from "./Editor";
 
 type TokenTemplatesProps = {
-    clickHandler: any;
+    clickHandler: (template: Template) => void;
+    selectedTemplate: Template | null;
 }
 
 export const TokenTemplates = (props: TokenTemplatesProps) => {
   return (
     <div className="template-container">
-          <OmatiToken playerID="0" type='template' clickHandler={props.clickHandler}/>
-          <OmatiToken playerID="1" type='template' clickHandler={props.clickHandler}/>
+      <TemplateTokenComponent clickHandler={props.clickHandler}  playerID={"0"} />
+      <TemplateTokenComponent clickHandler={props.clickHandler}  playerID={"1"} />
     </div>
   )
 }

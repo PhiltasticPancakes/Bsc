@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { TileTemplates } from "./TileTemplates";
 import { EditingBoard } from "./EditingBoard";
-import { GridPosition, createMovementGrid, createTokenGrid } from "../Board";
+import { GridPosition, Tile, createTileGrid, createTokenGrid } from "../Board";
 import { TokenTemplates } from "./TokenTemplates";
-import { MovementDescription, playerID } from "../PlayingBoard/BoardMovement";
-import { EditorTileProps } from "../Tiles.tsx/Tile";
+import { MovementDescription, Token } from "../PlayingBoard/BoardMovement";
 import { Button } from "@mui/material";
-import { Game } from "boardgame.io";
-import { GameDefinition, PlayingBoardState } from "../PlayingBoard/PlayingBoard";
+import { GameDefinition } from "../PlayingBoard/PlayingBoard";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string }
+
+export type Template = (TokenTemplate | TileTemplate);
+
+export type TokenTemplate = {
+    type: "token",
+    token: Token
+}
+
+export type TileTemplate = {
+    type: "tile",
+    tile: Tile
+}
 
 const localStorageSaveGame = (gameName: string, game: GameDefinition) => {
     localStorage.setItem('game_' + gameName, JSON.stringify(game));
@@ -21,30 +31,29 @@ saveGame = localStorageSaveGame;
 
 export const Editor = (props: EditorProps) => {
     const [tokens, setTokens] = useState(createTokenGrid(props.rowCount, props.colCount));
-    const [tiles, setTiles] = useState(createMovementGrid(props.rowCount, props.colCount))
-    const [selectedTokenTemplate, setSelectedTokenTemplate] = useState<playerID | null>(null);
+    const [tiles, setTiles] = useState(createTileGrid(props.rowCount, props.colCount))
+    const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
 
-    const onTokenTemplateClicked = (playerID: playerID) => {
-        console.log(playerID);
-        setSelectedTokenTemplate(playerID);
-    }
-
-    const onDragDropped = (gridPos: GridPosition, movementDescription: MovementDescription) => {
-        const newTiles = tiles.slice();
-        newTiles[gridPos.row][gridPos.col] = movementDescription;
-        setTiles(newTiles);
+    const onTemplateClicked = (template: Template) => {
+        console.log("Clicked on template: " + template);
+        setSelectedTemplate(template);
     }
 
     const onBoardTileClicked = (gridpos: GridPosition): void => {
-        if (tokens[gridpos.row][gridpos.col]) {
-            const newGrid = tokens.slice();
-            newGrid[gridpos.row][gridpos.col] = null;
-            setTokens(newGrid);
+        console.log("Clicked on board tile: " + gridpos.row + "," + gridpos.col);
+        console.log("Selected template: " + selectedTemplate);
+        if (selectedTemplate == null) {
+            return;
         }
-        else if (selectedTokenTemplate) {
-            const newGrid = tokens.slice();
-            newGrid[gridpos.row][gridpos.col] = selectedTokenTemplate;
-            setTokens(newGrid);
+
+        if (selectedTemplate.type == "token") {
+            const newTokens = tokens.slice();
+            newTokens[gridpos.row][gridpos.col] = selectedTemplate.token;
+            setTokens(newTokens);
+        } else {
+            const newTiles = tiles.slice();
+            newTiles[gridpos.row][gridpos.col] = selectedTemplate.tile;
+            setTiles(newTiles);
         }
     }
 
@@ -65,15 +74,14 @@ export const Editor = (props: EditorProps) => {
 
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div style={{ display: "flex", justifyContent: "space-around" , border: "2px solid black"}}>
                 <h1>{props.gameName}</h1>
-                <h1> Selected token: {selectedTokenTemplate}</h1>
                 <Button onClick={() => onSaveClicked()}> Save </Button>
             </div>
             <div className="editor">
-                <TileTemplates />
-                <EditingBoard tokens={tokens} tiles={tiles} clickHandler={onBoardTileClicked} onDragDropped={onDragDropped} />
-                <TokenTemplates clickHandler={onTokenTemplateClicked} />
+                <TileTemplates clickHandler={onTemplateClicked} selectedTemplate={selectedTemplate}/>
+                <EditingBoard tokens={tokens} tiles={tiles} clickHandler={onBoardTileClicked} editing={true}/>
+                <TokenTemplates clickHandler={onTemplateClicked} selectedTemplate={selectedTemplate}/>
             </div>
         </>
     )

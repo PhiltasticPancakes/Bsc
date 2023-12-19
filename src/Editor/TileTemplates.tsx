@@ -1,16 +1,21 @@
 import React from "react"
 import { MovementDescription } from "../PlayingBoard/BoardMovement"
-import { useDrag } from "react-dnd";
-import { TileComponent } from "../Tiles.tsx/Tile";
+import { TemplateTileComponent} from "../Tiles.tsx/Tile";
+import { Template } from "webpack";
+import { TileTemplate } from "./Editor";
 
+type TileTemplatesProps = {
+  clickHandler: (template: Template) => void;
+  selectedTemplate: Template | null;
+}
 
-export const TileTemplates = () => {
+export const TileTemplates = (props: TileTemplatesProps) => {
   
   return (
     <div className="template-container">
       {(Object.keys(MovementDescription) as (keyof typeof MovementDescription)[]).map(
         (md) => (
-          <TileComponent key={md} movementDescription={MovementDescription[md]} tileType="template" token={md} gridPos={{row: 0, col: 0}}/>
+          <TemplateTileComponent isSelected={props.selectedTemplate==md} key={md} clickHandler={props.clickHandler} tile={{movementDescription: MovementDescription[md]}} />
         )
       )}
     </div>

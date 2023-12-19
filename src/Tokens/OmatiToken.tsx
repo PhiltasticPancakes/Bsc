@@ -1,15 +1,9 @@
 import React from "react";
-import { TokenProps } from "./Tokens";
 import { useDrag } from "react-dnd";
+import { playerID } from "../PlayingBoard/BoardMovement";
 
-export const OmatiToken = (props: TokenProps) => {
+export const OmatiToken = (props: {playerID: playerID}) => {
     return (
-        props.type == 'template' ?
-            <div onClick={() => props.clickHandler(props.playerID)}>
-                <span className="dot">{Number(props.playerID) + 1}</span>
-            </div>
-            :
-
             <span className="dot">{Number(props.playerID) + 1}</span>
     )
 }

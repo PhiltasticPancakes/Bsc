@@ -1,72 +1,39 @@
-import { useDrag, useDrop } from "react-dnd";
 import { MovementDescription, playerID } from "../PlayingBoard/BoardMovement";
 import React from "react";
-import { GridPosition } from "../Board";
+import { GridPosition, Tile } from "../Board";
 import { OmatiToken } from "../Tokens/OmatiToken";
+import { TokenComponent } from "../Tokens/Tokens";
+import { TileTemplate } from "../Editor/Editor";
 
-type TokenComponentProps = { playerID: playerID | null };
 
-type TileProps = (EditorTileProps | TemplateTileProps | PlayingTileProps);
+export type TileComponentProps = (EditorTileProps | TemplateTileProps | PlayingTileProps);
 
 type BaseTileType = {
-    isSelected?: boolean,
-    isHighlighted?: boolean,
-    handleClick?: (gridPos: GridPosition) => void,
-
-    movementDescription: MovementDescription,
-    gridPos: GridPosition,
-    token: string | null,
-
-
+    isSelected: boolean,
+    tile: Tile,
 }
 
 export type TemplateTileProps = {
-    tileType: "template"
+    clickHandler: (tile: TileTemplate) => void
 } & BaseTileType;
 
 export type PlayingTileProps = {
-    tileType: "playing",
+    clickHandler: (gridPos: GridPosition) => void
+    isHighlighted: boolean,
+    gridPos: GridPosition,
+    token: string | null,
 
 } & BaseTileType;
 
 export type EditorTileProps = {
-    tileType: "editor",
-    onDragDropped: (gridPos: GridPosition, tileTemplate: MovementDescription) => void;
-
+    clickHandler: (gridPos: GridPosition) => void
+    gridPos: GridPosition,
+    token: string | null,
 
 } & BaseTileType;
-const Tile = (props: TileProps) => {
-    let style: React.CSSProperties = {
-        ...(props.isSelected ? { color: 'Green' } : {}),
-    }
-    return (
-        <div className="tile" style={style}
-            onClick={() => {
-                if (props.handleClick) {
-                    props.handleClick(props.gridPos);
-                }
-            }}
-        >
-            {props.token ?
-                <OmatiToken type={"playing"} playerID={props.token} />
-                : null}
-        </div>
-    )
-}
 
-export const TileComponent = (props: TileProps) => {
-    switch (props.tileType) {
-        case "template":
-            return (<TemplateTileWrapper {...props} />)
-        case "playing":
-            return (<PlayingTileWrapper {...props} />)
-        case "editor":
-            return (<EditingTileWrapper {...props} />)
-    }
-}
-
-const mapTileToColor = (tileType: MovementDescription) => {
-    switch (tileType) {
+const mapTileToColor = (tile: Tile) => {
+    switch (tile.movementDescription) {
         case MovementDescription.Rook:
             return 'red'
         case MovementDescription.Bishop:
@@ -80,64 +47,47 @@ const mapTileToColor = (tileType: MovementDescription) => {
     }
 }
 
-const TemplateTileWrapper = (props: TemplateTileProps) => {
+export const TemplateTileComponent = (props: TemplateTileProps) => {
     let style: React.CSSProperties = {
         ...(props.isSelected ? { color: 'Green' } : {}),
-        background: mapTileToColor(props.movementDescription)
+        background: mapTileToColor(props.tile),
     }
-    const [, drag] = useDrag({
-        type: 'Template',
-        item: props,
-    });
 
     return (
-        <div className="tile" style={style} ref={drag}
+        <div className="tile" style={style}
             onClick={() => {
-                if (props.handleClick) {
-                    props.handleClick(props.gridPos);
-                }
+                    props.clickHandler({ type: "tile", tile: props.tile });
+
             }}
         >
-            {props.token}
+            {props.tile.movementDescription}
         </div>
     )
 }
 
-const EditingTileWrapper = (props: EditorTileProps) => {
-    const [, drop] = useDrop({
-        accept: 'Template',
-        drop: (item: EditorTileProps) => {
-            // Handle the drop event here
-            console.log(`Dropped square ${item.movementDescription}`);
-            props.onDragDropped(props.gridPos, item.movementDescription);
-        },
-    });
-
+export const EditingTileComponent = (props: EditorTileProps) => {
     let style: React.CSSProperties = {
-        ...(props.isSelected ? { color: 'Green' } : {}),
-        background: mapTileToColor(props.movementDescription),
+        background: mapTileToColor(props.tile),
         height: 'fit-content'
     }
 
     return (
-        <div className="tile" style={style} ref={drop}
+        <div className="tile" style={style}
             onClick={() => {
-                if (props.handleClick) {
-                    props.handleClick(props.gridPos);
-                }
+                    props.clickHandler(props.gridPos);
             }}
         >
             {props.token ?
-                <OmatiToken type={"playing"} playerID={props.token} />
+                <TokenComponent playerID={props.token} />
                 : null}
         </div>
     )
 }
 
-const PlayingTileWrapper = (props: PlayingTileProps) => {
+export const PlayingTileComponent = (props: PlayingTileProps) => {
     let style: React.CSSProperties = {
         ...(props.isSelected ? { color: 'Green' } : {}),
-        background: mapTileToColor(props.movementDescription),
+        background: mapTileToColor(props.tile),
         height: 'fit-content',
         ...(props.isHighlighted ? { border: 'solid 4px blue' } : {}),
     }
@@ -145,13 +95,12 @@ const PlayingTileWrapper = (props: PlayingTileProps) => {
     return (
         <div className="tile" style={style}
             onClick={() => {
-                if (props.handleClick) {
-                    props.handleClick(props.gridPos);
-                }
+                    props.clickHandler(props.gridPos);
+
             }}
         >
             {props.token ?
-                <OmatiToken type={"playing"} playerID={props.token} />
+                <TokenComponent playerID={props.token} />
                 : null}
         </div>
     )
