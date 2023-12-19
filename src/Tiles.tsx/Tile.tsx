@@ -138,7 +138,8 @@ const PlayingTileWrapper = (props: PlayingTileProps) => {
     let style: React.CSSProperties = {
         ...(props.isSelected ? { color: 'Green' } : {}),
         background: mapTileToColor(props.movementDescription),
-        height: 'fit-content'
+        height: 'fit-content',
+        ...(props.isHighlighted ? { border: 'solid 4px blue' } : {}),
     }
 
     return (

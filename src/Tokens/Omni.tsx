@@ -6,10 +6,10 @@ export const OmniToken = (props: TokenProps) => {
     return (
         props.type == 'template' ?
             <div onClick={() => props.clickHandler(props.playerID)}>
-                <span className="dot">{props.playerID}</span>
+                <span className="dot">{Number(props.playerID) + 1}</span>
             </div>
             :
 
-            <span className="dot">{props.playerID}</span>
+            <span className="dot">{Number(props.playerID) + 1}</span>
     )
 }

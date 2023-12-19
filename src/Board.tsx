@@ -20,6 +20,7 @@ type BoardComponentProps = Board & { onDragDropped?: any, editing?: boolean, han
 export const BoardComponent = (props: BoardComponentProps) => {
     const gridLayout = { gridTemplateColumns: "repeat(" + props.tokens[0].length + ", 1fr)" };
 
+
     return (
         <div className="board-wrapper">
             <div className="board" style={gridLayout}>
@@ -29,6 +30,7 @@ export const BoardComponent = (props: BoardComponentProps) => {
                         const movement: MovementDescription = props.tiles[rowNum][colNum];
                         return (
                             <TileComponent
+                                isHighlighted={props.highlightedTiles.some((t) => compareGridPositions(t, pos))}
                                 tileType={props.editing ? "editor" : "playing"}
                                 isSelected={props.selectedTile != null && compareGridPositions(pos, props.selectedTile)}
                                 key={rowNum + "," + colNum}

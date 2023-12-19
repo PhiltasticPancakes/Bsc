@@ -111,7 +111,7 @@ function rookMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
     result.push(option);
   }
   for (let i = 1; isWithinBounds({ row: pos.row, col: pos.col - i}, tokens); i++) {
-    let option = {row: pos.row + i, col: pos.col -i};
+    let option = {row: pos.row, col: pos.col -i};
     result.push(option);
   }
 
@@ -143,7 +143,7 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 
   for (let i = 0; i < rowCount; i++) {
     for (let j = 0; j < colCount; j++) {
-      if(!G.tokens[i][j]) {
+      if(!G.tokens[i][j] || G.tokens[i][j] != ctx.currentPlayer ) {
         continue;
       }
       pos = { row: i, col: j };

@@ -11,8 +11,8 @@ type TokenTemplatesProps = {
 export const TokenTemplates = (props: TokenTemplatesProps) => {
   return (
     <div className="template-container">
+          <OmniToken playerID="0" type='template' clickHandler={props.clickHandler}/>
           <OmniToken playerID="1" type='template' clickHandler={props.clickHandler}/>
-          <OmniToken playerID="2" type='template' clickHandler={props.clickHandler}/>
     </div>
   )
 }
