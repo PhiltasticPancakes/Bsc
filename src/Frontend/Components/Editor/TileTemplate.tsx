@@ -4,24 +4,25 @@ import { TileTemplate } from "./Editor";
 import { BaseTileProps } from "../BaseTile";
 
 export type TemplateTileProps = {
-    tileType: TileType,
-    clickHandler: (tile: TileTemplate) => void
+  tileType: TileType;
+  clickHandler: (tile: TileTemplate) => void;
 } & BaseTileProps;
 
 export const TemplateTileComponent = (props: TemplateTileProps) => {
-    let style: React.CSSProperties = {
-        ...(props.isSelected ? { color: 'Green' } : {}),
-        background: props.tileType.color,
-    }
+  let style: React.CSSProperties = {
+    ...(props.isSelected ? { color: "Green" } : {}),
+    background: props.tileType.color,
+  };
 
-    return (
-        <div className="tile" style={style}
-            onClick={() => {
-                    props.clickHandler({ templateType: "tile", tileType: props.tileType});
-
-            }}
-        >
-            {props.tileType.name}
-        </div>
-    )
-}
+  return (
+    <div
+      className="tile"
+      style={style}
+      onClick={() => {
+        props.clickHandler({ templateType: "tile", tileType: props.tileType });
+      }}
+    >
+      {props.tileType.name}
+    </div>
+  );
+};

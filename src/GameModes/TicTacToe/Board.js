@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 export function TicTacToeBoard({ ctx, G, moves }) {
   const onClick = (id) => moves.clickCell(id);
 
-  let winner = '';
+  let winner = "";
   if (ctx.gameover) {
     winner =
       ctx.gameover.winner !== undefined ? (
@@ -14,11 +14,11 @@ export function TicTacToeBoard({ ctx, G, moves }) {
   }
 
   const cellStyle = {
-    border: '1px solid #555',
-    width: '50px',
-    height: '50px',
-    lineHeight: '50px',
-    textAlign: 'center',
+    border: "1px solid #555",
+    width: "50px",
+    height: "50px",
+    lineHeight: "50px",
+    textAlign: "center",
   };
 
   let tbody = [];
@@ -33,7 +33,7 @@ export function TicTacToeBoard({ ctx, G, moves }) {
           ) : (
             <button style={cellStyle} onClick={() => onClick(id)} />
           )}
-        </td>
+        </td>,
       );
     }
     tbody.push(<tr key={i}>{cells}</tr>);

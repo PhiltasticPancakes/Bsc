@@ -1,4 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -15,33 +15,35 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.(ts|tsx)?$/,
         loader: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
-    ]
+    ],
   },
   resolve: {
     fullySpecified: false,
-    extensions: ['.ts', '.js', '.json', '.tsx', '.css']
+    extensions: [".ts", ".js", ".json", ".tsx", ".css"],
   },
   devServer: {
     historyApiFallback: true,
     port: 3000,
     open: true,
-    hot: true
+    hot: true,
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: "public/index.html",
-    hash: true, // cache busting
-    filename: '../dist/index.html'
-  })]
-}
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "public/index.html",
+      hash: true, // cache busting
+      filename: "../dist/index.html",
+    }),
+  ],
+};

@@ -1,13 +1,9 @@
-import React from "react"
+import React from "react";
 
 export type BaseTileProps = {
-    isSelected: boolean,
-}
+  isSelected: boolean;
+};
 
 export const BaseTileComponent = (props: BaseTileProps) => {
-    return (
-        <div>
-            BaseTile
-        </div>
-    )
-}
+  return <div>BaseTile</div>;
+};
