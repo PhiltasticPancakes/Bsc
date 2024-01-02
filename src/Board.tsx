@@ -1,20 +1,9 @@
 import React from "react";
-import { MovementDescription, Token, compareGridPositions } from "./PlayingBoard/BoardMovement";
 import { EditingTileComponent, PlayingTileComponent } from "./Tiles.tsx/Tile";
+import { compareGridPositions } from "./Framework/BoardMovement";
+import { Board, GridPosition, Tile } from "./Framework/types";
 
-export type Board = { tokens: TokenGrid, tiles: TileGrid }
 
-export type GridPosition = {
-    row: number;
-    col: number;
-};
-
-export type Tile = {
-    movementDescription: MovementDescription;
-}
-
-type TileGrid = (Tile)[][];
-export type TokenGrid = (Token | null)[][];
 
 
 type BaseBoardProps = Board & {
@@ -76,18 +65,4 @@ export const BoardComponent = (props: BoardComponentProps) => {
     )
 }
 
-export function createTokenGrid(rows: number, cols: number): TokenGrid {
-    const grid: TokenGrid = Array.from(Array(rows), () => new Array(cols));
-    for (let i = 0; i < rows; i++) {
-        grid[i].fill(null);
-    }
-    return grid;
-};
 
-export function createTileGrid(rows: number, cols: number): TileGrid {
-    const grid: TileGrid = Array.from(Array(rows), () => new Array(cols));
-    for (let i = 0; i < rows; i++) {
-        grid[i].fill({ movementDescription: MovementDescription.None });
-    }
-    return grid;
-};

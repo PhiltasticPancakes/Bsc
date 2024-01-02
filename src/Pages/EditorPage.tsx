@@ -1,6 +1,8 @@
 import { Button, Container, FormControl, FormLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { Editor } from "./Editor";
+import { Editor } from "../Components/Editor/Editor";
+
+type editorPageProps = { saveGame: (gameName: string, game: string) => void };
 
 export const EditorPage = () => {
     const [height, setHeight] = useState(0);

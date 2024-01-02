@@ -3,9 +3,10 @@ import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { Client } from 'boardgame.io/react';
 
-import { GameDefinition, PlayingBoardComponent, doMove, PlayingBoardState } from './PlayingBoard/PlayingBoard';
+import { GameDefinition, PlayingBoardComponent, doMove, PlayingBoardState } from '../Components/PlayingBoard/PlayingBoard';
 import React from 'react';
-import { MoveDescription, MovementDescription, getAllPossibleMoves, isMoveInOptions } from './PlayingBoard/BoardMovement';
+import { getAllPossibleMoves, isMoveInOptions } from './BoardMovement';
+import { MoveDescription } from './types';
 
 
 const gameWithSetupData = (setupData: GameDefinition): Game<PlayingBoardState> => ({

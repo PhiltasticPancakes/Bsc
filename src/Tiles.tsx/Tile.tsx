@@ -1,9 +1,8 @@
-import { MovementDescription, playerID } from "../PlayingBoard/BoardMovement";
 import React from "react";
-import { GridPosition, Tile } from "../Board";
 import { OmatiToken } from "../Tokens/OmatiToken";
 import { TokenComponent } from "../Tokens/Tokens";
-import { TileTemplate } from "../Editor/Editor";
+import { TileTemplate } from "../Components/Editor/Editor";
+import { GridPosition, MovementDescription, Tile } from "../Framework/types";
 
 
 export type TileComponentProps = (EditorTileProps | TemplateTileProps | PlayingTileProps);

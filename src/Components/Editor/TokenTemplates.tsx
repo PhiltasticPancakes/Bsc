@@ -1,5 +1,5 @@
 import React from "react"
-import { TemplateTokenComponent } from "../Tokens/Tokens";
+import { TemplateTokenComponent } from "../../Tokens/Tokens";
 import { Template, TokenTemplate } from "./Editor";
 
 type TokenTemplatesProps = {

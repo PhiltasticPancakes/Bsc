@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { BoardComponent, EditingBoardProps, GridPosition} from "../Board";
-import { Board } from "../PlayingBoard/PlayingBoard";
-import { MoveDescription } from "../PlayingBoard/BoardMovement";
+import { BoardComponent, EditingBoardProps} from "../../Board";
 
 export const EditingBoard = (props: EditingBoardProps) => {
     return (

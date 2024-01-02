@@ -4,11 +4,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import './index.css';
-import { Home } from "./home";
-import { EditorPage } from "./Editor/EditorPage";
-import { PlayPage } from "./PlayPage";
+import { EditorPage } from "./Pages/EditorPage";
+import { PlayPage } from "./Pages/PlayPage";
 import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { HomePage } from "./Pages/HomePage";
 
 const root = document.getElementById("root");
 render(
@@ -23,7 +23,7 @@ render(
                     </header>
                     <main>
                         <Routes>
-                            <Route path="/" element={<Home />} />
+                            <Route path="/" element={<HomePage />} />
                             <Route path="/play" element={<PlayPage />} />
                             <Route path="/edit" element={<EditorPage />} />
                         </Routes>

@@ -1,25 +1,9 @@
 import { Ctx } from "boardgame.io";
-import { Board, GridPosition } from "../Board";
+import { GridPosition, Token, Board, MoveDescription } from "./types";
 
 
-export type MoveDescription = {
-  playerID: playerID;
-  from: GridPosition;
-  to: GridPosition;
-}
 
 
-export type Token = playerID
-export type playerID = string;
-
-export enum MovementDescription {
-  Knight = "knight",
-  Rook = "rook",
-  Bishop = "bishop",
-  King = "king",
-  Queen = "queen",
-  None = "none"
-}
 
 function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   const knightMoveOffsets = [

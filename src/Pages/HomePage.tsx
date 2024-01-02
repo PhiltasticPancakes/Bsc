@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-export const Home = () => {
+export const HomePage = () => {
     return (
             <div className="centered">
                 <Button size="large" component={Link} to={'/play'} variant="outlined"> <Typography>Play</Typography> </Button>

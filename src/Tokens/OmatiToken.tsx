@@ -1,6 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import { playerID } from "../PlayingBoard/BoardMovement";
+import { playerID } from "../Framework/types";
 
 export const OmatiToken = (props: {playerID: playerID}) => {
     return (

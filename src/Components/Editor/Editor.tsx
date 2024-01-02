@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { TileTemplates } from "./TileTemplates";
 import { EditingBoard } from "./EditingBoard";
-import { GridPosition, Tile, createTileGrid, createTokenGrid } from "../Board";
 import { TokenTemplates } from "./TokenTemplates";
-import { Token } from "../PlayingBoard/BoardMovement";
 import { Button } from "@mui/material";
 import { GameDefinition } from "../PlayingBoard/PlayingBoard";
+import { Token, Tile, GridPosition } from "../../Framework/types";
+import { createTokenGrid, createTileGrid } from "../../Framework/Utilities";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string }
 
@@ -74,9 +74,9 @@ export const Editor = (props: EditorProps) => {
 
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "space-around" , border: "2px solid black"}}>
-                <h1>{props.gameName}</h1>
-                <Button onClick={() => onSaveClicked()}> Save </Button>
+            <div style={{ display: "flex", justifyContent: "space-between" , border: "2px solid black"}}>
+                <h1>GameMode: {props.gameName}</h1>
+                <Button variant="outlined" onClick={() => onSaveClicked()}> Save </Button>
             </div>
             <div className="editor">
                 <TileTemplates clickHandler={onTemplateClicked} selectedTemplate={selectedTemplate}/>

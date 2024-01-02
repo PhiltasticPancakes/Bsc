@@ -1,7 +1,9 @@
 import { BoardProps } from "boardgame.io/dist/types/packages/react";
 import React, { useState } from "react";
-import { Board, BoardComponent, GridPosition} from "../Board";
-import { MoveDescription, Token, compareGridPositions } from "./BoardMovement";
+import { BoardComponent } from "../../Board";
+import { compareGridPositions } from "../../Framework/BoardMovement";
+import { Board, MoveDescription, GridPosition, Token } from "../../Framework/types";
+
 
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.
 export type PlayingBoardState = Board & { possibleMoves: MoveDescription[] }
