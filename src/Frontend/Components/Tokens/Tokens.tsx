@@ -1,27 +1,27 @@
 import React from "react";
 import { OmatiToken } from "./OmatiToken";
 import { Template } from "../Editor/Editor";
-import { playerID } from "../../../Framework/types";
+import { Token } from "../../../Framework/types";
 
 export type TokenProps = {
-    playerID: playerID;
+    token: Token;
 }
 
 export type TemplateTokenProps = {
     clickHandler: (template: Template) => void;
-    playerID: playerID;
+    token: Token;
 }
 
 export const TemplateTokenComponent = (props: TemplateTokenProps) => {
     return (
-        <div onClick={() => props.clickHandler({ type: "token", token: props.playerID })}>
-            <OmatiToken playerID={props.playerID} />
+        <div onClick={() => props.clickHandler({ type: "token", token: props.token })}>
+            <OmatiToken playerID={props.token.playerID} />
         </div>
     )
 }
 
 export const TokenComponent = (props: TokenProps) => {
     return (
-        <OmatiToken playerID={props.playerID} />
+        <OmatiToken playerID={props.token.playerID} />
     )
 }

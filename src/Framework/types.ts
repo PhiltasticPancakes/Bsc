@@ -1,15 +1,13 @@
-import { Ctx } from "boardgame.io";
-import { GameState } from "../Frontend/Components/PlayingBoard/PlayingBoard";
+import { PlayerID } from "boardgame.io";
 
 export type MoveDescription = {
-    playerID: playerID;
+    playerID: PlayerID;
     from: GridPosition;
     to: GridPosition;
 }
 
 
-export type Token = playerID
-export type playerID = string;
+export type Token = {playerID: PlayerID}
 
 
 export type Board = { tokens: TokenGrid, tiles: TileGrid }

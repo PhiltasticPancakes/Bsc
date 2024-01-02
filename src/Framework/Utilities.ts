@@ -35,7 +35,7 @@ export const setTileAtPosition = (G: GameState, pos: GridPosition, tile: Tile) =
   G.board.tiles[pos.row][pos.col] = tile;
 }
 
-export const setTokenAtPosition = (G: GameState, pos: GridPosition, token: string) => {
+export const setTokenAtPosition = (G: GameState, pos: GridPosition, token: Token) => {
   G.board.tokens[pos.row][pos.col] = token;
 }
 

@@ -1,13 +1,14 @@
 import { BoardProps } from "boardgame.io/dist/types/packages/react";
 import React, { useState } from "react";
 import { BoardComponent } from "../Board";
-import { Board, MoveDescription, GridPosition, Token, playerID } from "../../../Framework/types";
+import { Board, MoveDescription, GridPosition, Token } from "../../../Framework/types";
 import { compareGridPositions } from "../../../Framework/Utilities";
+import { PlayerID } from "boardgame.io";
 
 
 
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.
-export type GameState =  {board: Board, possibleMoves: MoveDescription[],  gameOver: false | playerID}
+export type GameState =  {board: Board, possibleMoves: MoveDescription[],  gameOver: false | PlayerID}
 
 
 //Props extending BG base type
@@ -18,7 +19,7 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   const [selected, setSelected] = useState<GridPosition | null>(null);
 
   const handleOnTileClicked = (gridPos: GridPosition): void => {
-    const clickedTile: Token | null = getTokenAtPos(gridPos);
+    const clickedToken: Token | null = getTokenAtPos(gridPos);
 
     //Deselect if clicked on selected tile
     if (selected && compareGridPositions(selected, gridPos)) {
@@ -27,13 +28,13 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
     }
 
     //Select tile if it is the current player's
-    if (clickedTile != null && clickedTile == ctx.currentPlayer) {
+    if (clickedToken != null && clickedToken.playerID == ctx.currentPlayer) {
       setSelected(gridPos);
       return;
     };
 
     //Move if a tile is selected and the clicked tile is empty or not the current player's
-    if (selected && (clickedTile == null || clickedTile != ctx.currentPlayer)) {
+    if (selected && (clickedToken == null || clickedToken.playerID != ctx.currentPlayer)) {
       moves.move({ playerID: Number(ctx.currentPlayer), from: selected, to: gridPos });
       setSelected(null);
       return;

@@ -1,8 +1,7 @@
 import React from "react";
-import { OmatiToken } from "../Tokens/OmatiToken";
 import { TokenComponent } from "../Tokens/Tokens";
 import { TileTemplate } from "../Editor/Editor";
-import { GridPosition, MovementDescription, Tile } from "../../../Framework/types";
+import { GridPosition, MovementDescription, Tile, Token } from "../../../Framework/types";
 
 
 export type TileComponentProps = (EditorTileProps | TemplateTileProps | PlayingTileProps);
@@ -20,14 +19,14 @@ export type PlayingTileProps = {
     clickHandler: (gridPos: GridPosition) => void
     isHighlighted: boolean,
     gridPos: GridPosition,
-    token: string | null,
+    token: Token | null,
 
 } & BaseTileType;
 
 export type EditorTileProps = {
     clickHandler: (gridPos: GridPosition) => void
     gridPos: GridPosition,
-    token: string | null,
+    token: Token | null,
 
 } & BaseTileType;
 
@@ -77,7 +76,7 @@ export const EditingTileComponent = (props: EditorTileProps) => {
             }}
         >
             {props.token ?
-                <TokenComponent playerID={props.token} />
+                <TokenComponent token={props.token} />
                 : null}
         </div>
     )
@@ -99,7 +98,7 @@ export const PlayingTileComponent = (props: PlayingTileProps) => {
             }}
         >
             {props.token ?
-                <TokenComponent playerID={props.token} />
+                <TokenComponent token={props.token} />
                 : null}
         </div>
     )

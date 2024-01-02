@@ -1,6 +1,7 @@
 import { Ctx } from "boardgame.io";
 import { GridPosition, Token, Board, MoveDescription } from "./types";
 import { GameState } from "../Frontend/Components/PlayingBoard/PlayingBoard";
+import { getTokenAtPosition } from "./Utilities";
 
 function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   const knightMoveOffsets = [
@@ -124,11 +125,11 @@ export const getAllPossibleMoves = (G: GameState, ctx: Ctx): MoveDescription[] =
 
   for (let i = 0; i < rowCount; i++) {
     for (let j = 0; j < colCount; j++) {
-      if(!G.board.tokens[i][j] || G.board.tokens[i][j] != ctx.currentPlayer ) {
+      if(!G.board.tokens[i][j] || G.board.tokens[i][j]?.playerID != ctx.currentPlayer ) {
         continue;
       }
       pos = { row: i, col: j };
-      optionsAtPos = possibleMovesAtPos(G, pos);
+      optionsAtPos = possibleMovesAtPos(G, ctx, pos);
       allPossibleMoves.push(...optionsAtPos);
     }
   }
@@ -137,15 +138,16 @@ export const getAllPossibleMoves = (G: GameState, ctx: Ctx): MoveDescription[] =
 }
 
 
-const possibleMovesAtPos = ({ board }: GameState, gridPos: GridPosition): MoveDescription[] => {
+const possibleMovesAtPos = (G: GameState, ctx: Ctx, gridPos: GridPosition): MoveDescription[] => {
   //Parses the string description to a function call to collect possible moves
-  let parsedFunction: string = board.tiles[gridPos.row][gridPos.col].movementDescription + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(board.tokens) + ")";
+  let parsedFunction: string = G.board.tiles[gridPos.row][gridPos.col].movementDescription + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(G.board.tokens) + ")";
 
   //Error prone implementation, use function to return correct movementpattern from string
   const reachablePositions: GridPosition[] = eval(parsedFunction) as GridPosition[];
   const possibleMoves: MoveDescription[] = reachablePositions.map(
-    (option: GridPosition) => ({ playerID: board.tokens[gridPos.row][gridPos.col], from: gridPos, to:  option} as MoveDescription)
+    (option: GridPosition) => ({ playerID: ctx.currentPlayer, from: gridPos, to:  option} as MoveDescription)
   );
   return possibleMoves;
 }
 
+ 
