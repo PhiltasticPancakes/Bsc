@@ -15,6 +15,7 @@ export type GameState = {
   board: Board;
   possibleMoves: MoveDescription[];
   gameOver: false | PlayerID;
+  winZone: GridPosition[];
 };
 
 //Props extending BG base type
@@ -85,6 +86,7 @@ export const PlayingBoardComponent = ({
       clickHandler={handleOnTileClicked}
       selectedTile={selected}
       highlightedTiles={highlightedTiles}
+      winZone={G.winZone}
     />
   );
 };

@@ -9,6 +9,7 @@ export type PlayingTileProps = {
   isHighlighted: boolean;
   token: Token | null;
   tile: Tile;
+  isInWinZone: boolean;
 } & BaseTileProps;
 
 export const PlayingTileComponent = (props: PlayingTileProps) => {
@@ -18,6 +19,7 @@ export const PlayingTileComponent = (props: PlayingTileProps) => {
     background: tileTemplate.color,
     height: "fit-content",
     ...(props.isHighlighted ? { border: "solid 4px blue" } : {}),
+    ...(props.isInWinZone ? {opacity: 0.5} : {})
   };
 
   return (

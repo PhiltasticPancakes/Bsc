@@ -107,6 +107,7 @@ export const Editor = (props: EditorProps) => {
         tokens: tokens,
         tiles: tiles,
       },
+      winZone: winCondition.zone,
       playerCount: 2,
       moveCount: 1,
       winCondition: winCondition,
@@ -149,11 +150,11 @@ export const Editor = (props: EditorProps) => {
           selectedTemplate={selectedTemplate}
         />
         <EditingBoard
-          tokens={tokens}
-          tiles={tiles}
-          clickHandler={onBoardTileClicked}
-          editing={true}
-        />
+                  tokens={tokens}
+                  tiles={tiles}
+                  clickHandler={onBoardTileClicked}
+                  editing={true} 
+                  winZone={winCondition.zone}        />
         <TokenTemplates
           clickHandler={onTemplateClicked}
           selectedTemplate={selectedTemplate}

@@ -17,6 +17,7 @@ const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
     board: setupData.initialBoard,
     possibleMoves: [],
     gameOver: false,
+    winZone: setupData.winZone,
   }),
 
   turn: {

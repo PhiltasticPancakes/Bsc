@@ -17,6 +17,7 @@ export type TileComponentProps =
 
 export type BaseBoardProps = Board & {
   clickHandler: (pos: GridPosition) => void;
+  winZone: GridPosition[];
 };
 
 type BoardComponentProps = PlayingBoardProps | EditingBoardProps;
@@ -41,6 +42,9 @@ export const BoardComponent = (props: BoardComponentProps) => {
                 tile={tile}
                 clickHandler={props.clickHandler}
                 isHighlighted={false}
+                isInWinZone={props.winZone.some((t) =>
+                  compareGridPositions(t, pos),
+                )}
               />
             ) : (
               <PlayingTileComponent
@@ -55,6 +59,9 @@ export const BoardComponent = (props: BoardComponentProps) => {
                 clickHandler={props.clickHandler}
                 token={token}
                 tile={tile}
+                isInWinZone={props.winZone.some((t) =>
+                  compareGridPositions(t, pos),
+                )}
               />
             );
           }),

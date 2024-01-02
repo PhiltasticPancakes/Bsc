@@ -9,6 +9,7 @@ export type EditorTileProps = {
   gridPos: GridPosition;
   token: Token | null;
   tile: Tile;
+  isInWinZone: boolean;
 } & BaseTileProps;
 
 export const EditorTileComponent = (props: EditorTileProps) => {
@@ -16,6 +17,7 @@ export const EditorTileComponent = (props: EditorTileProps) => {
   let style: React.CSSProperties = {
     background: tileType.color,
     height: "fit-content",
+    ...(props.isInWinZone ? {opacity: 0.5} : {})
   };
 
   return (

@@ -85,6 +85,7 @@ export type GameDefinition = {
   playerCount: number;
   winCondition: WinCondition;
   moveCount?: number;
+  winZone: GridPosition[];
 };
 
 /**
