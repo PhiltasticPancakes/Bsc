@@ -5,6 +5,7 @@ import { TokenTemplates } from "./TokenTemplates";
 import { Button } from "@mui/material";
 import { Token, Tile, GridPosition, GameDefinition, WinCondition, Board, SaveImplementation } from "../../../Framework/types";
 import { createTokenGrid, createTileGrid } from "../../../Framework/Utilities";
+import { useNavigate } from "react-router-dom";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string, saveGame: SaveImplementation }
 
@@ -25,6 +26,8 @@ export const Editor = (props: EditorProps) => {
     const [tiles, setTiles] = useState(createTileGrid(props.rowCount, props.colCount))
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
     const [winCondition, setWinCondition] = useState<WinCondition | null>(null);
+
+    const navigate = useNavigate();
 
     const onTemplateClicked = (template: Template) => {
         setSelectedTemplate(template);
@@ -61,6 +64,7 @@ export const Editor = (props: EditorProps) => {
         }
 
         props.saveGame(props.gameName, newGame);
+        navigate("/");
     }
 
     return (
