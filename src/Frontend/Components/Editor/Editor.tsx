@@ -55,7 +55,9 @@ export const Editor = (props: EditorProps) => {
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
     null,
   );
-  const [winCondition, setWinCondition] = useState<WinCondition>(ZoneControl);
+  const [winCondition, setWinCondition] = useState<ZoneControlType>(ZoneControl);
+
+  const [settingWinCondition, setSettingWinCondition] = useState(false);
 
   const navigate = useNavigate();
 
@@ -64,6 +66,24 @@ export const Editor = (props: EditorProps) => {
   };
 
   const onBoardTileClicked = (gridpos: GridPosition): void => {
+    if (settingWinCondition) {
+      const newZone = winCondition.zone.slice();
+
+      // Remove if already in zone
+      if(winCondition.zone.some((pos) => pos.row == gridpos.row && pos.col == gridpos.col)){
+        const index = winCondition.zone.findIndex((pos) => pos.row == gridpos.row && pos.col == gridpos.col);
+        newZone.splice(index, 1);
+        setWinCondition({ ...winCondition, zone: newZone });
+        return;
+      }
+
+      // Add if not in zone
+      newZone.push(gridpos);
+      setWinCondition({ ...winCondition, zone: newZone });
+      return;
+    }
+
+
     if (selectedTemplate == null) {
       return;
     }
@@ -108,10 +128,10 @@ export const Editor = (props: EditorProps) => {
         <h1>GameMode: {props.gameName}</h1>
 
         <Button
-          style={{ position: "absolute", left: "50%", right: "50%" }}
+          style={settingWinCondition? {backgroundColor: 'green'} : { }}
           variant="outlined"
           onClick={() => {
-            return null;
+            setSettingWinCondition(!settingWinCondition);
           }}
         >
           {" "}
