@@ -1,21 +1,17 @@
 import { BoardProps } from "boardgame.io/dist/types/packages/react";
 import React, { useState } from "react";
 import { BoardComponent } from "../Board";
-import { Board, MoveDescription, GridPosition, Token } from "../../../Framework/types";
+import { Board, MoveDescription, GridPosition, Token, playerID } from "../../../Framework/types";
 import { compareGridPositions } from "../../../Framework/Utilities";
 
 
+
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.
-export type PlayingBoardState = Board & { possibleMoves: MoveDescription[] }
-export type GameDefinition = {
-    gameName: string;
-    initialBoard: Board;
-    playerCount: number;
-    moveCount?: number;
-}
+export type GameState = Board & { possibleMoves: MoveDescription[],  gameOver: false | playerID}
+
 
 //Props extending BG base type
-export type PlayingBoardComponentProps = BoardProps<PlayingBoardState>;
+export type PlayingBoardComponentProps = BoardProps<GameState>;
 
 //Component
 export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentProps) => {
@@ -23,7 +19,6 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
 
   const handleOnTileClicked = (gridPos: GridPosition): void => {
     const clickedTile: Token | null = getTokenAtPos(gridPos);
-    console.log("tile clicked: " + JSON.stringify(gridPos) + ": " + clickedTile);
 
     //Deselect if clicked on selected tile
     if (selected && compareGridPositions(selected, gridPos)) {
@@ -49,6 +44,7 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   const getTokenAtPos = (pos: GridPosition): Token | null => {
     return G.tokens[pos.row][pos.col];
   }
+  
   //if selected, highlight possible moves
   const highlightedTiles = selected ? G.possibleMoves.filter((m) => compareGridPositions(m.from, selected)).map((m) => m.to) 
   : G.possibleMoves.map((m) => m.from).filter((value, index, self) => self.indexOf(value) === index);
@@ -65,7 +61,7 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   );
 };
 
-export const doMove = ({ from, to }: MoveDescription, G: PlayingBoardState): void => {
+export const doMove = ({ from, to }: MoveDescription, G: GameState): void => {
   G.tokens[to.row][to.col] = G.tokens[from.row][from.col];
   G.tokens[from.row][from.col] = null;
 }

@@ -1,10 +1,11 @@
 import { Button, Container, FormControl, FormLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Editor } from "../Components/Editor/Editor";
+import { SaveImplementation } from "../../Framework/types";
 
-type editorPageProps = { saveGame: (gameName: string, game: string) => void };
+type editorPageProps = { saveGame: SaveImplementation };
 
-export const EditorPage = () => {
+export const EditorPage = (props: editorPageProps) => {
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [name, setName] = useState("");
@@ -31,7 +32,7 @@ export const EditorPage = () => {
 
     return(
 <>
-            {(ready)? <Editor rowCount={height} colCount={width} gameName={name}/> : sizePicker}
+            {(ready)? <Editor saveGame={props.saveGame} rowCount={height} colCount={width} gameName={name}/> : sizePicker}
 </>
         );
 

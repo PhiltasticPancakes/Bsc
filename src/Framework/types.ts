@@ -1,3 +1,5 @@
+import { Ctx } from "boardgame.io";
+
 export type MoveDescription = {
     playerID: playerID;
     from: GridPosition;
@@ -25,6 +27,18 @@ export type Tile = {
 export type TileGrid = (Tile)[][];
 
 export type TokenGrid = (Token | null)[][];
+
+export type WinCondition = (G: Board, ctx: Ctx) => boolean;
+
+export type GameDefinition = {
+    gameName: string;
+    initialBoard: Board;
+    playerCount: number;
+    winCondition: WinCondition;
+    moveCount?: number;
+}
+
+export type SaveImplementation = (gameName: string, game: GameDefinition) => void
 
 export enum MovementDescription {
     Knight = "knight",

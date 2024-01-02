@@ -1,24 +1,14 @@
-import { Button, Container, FormControl, FormLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { ClientComponent } from "../../Framework/GameClient";
-import { GameDefinition, PlayingBoardState } from "../Components/PlayingBoard/PlayingBoard";
-import { green } from "@mui/material/colors";
+import { GameDefinition } from "../../Framework/types";
 
 type GameListItemProps = {
     game: GameDefinition;
 }
 
-const getGameList = (): GameDefinition[] => {
-    const gameList: GameDefinition[] = [];
-    for (const gameName in localStorage) {
-        if (gameName.startsWith("game_")) {
-            gameList.push(JSON.parse(localStorage[gameName]));
-        }
-    }
-    return gameList;
-}
+type PlayPageProps = { getGameList: () => GameDefinition[] }; 
 
-export const PlayPage = () => {
+export const PlayPage = ( props: PlayPageProps ) => {
     const [game, selectGame] = useState<GameDefinition | null>(null);
 
     const GameListItem = (props: GameListItemProps) => {
@@ -30,7 +20,7 @@ export const PlayPage = () => {
     }
 
     const GameModePicker = () => {
-        const gameList: GameDefinition[] = getGameList();
+        const gameList: GameDefinition[] = props.getGameList();
 
 
         const gameNames: string[] = gameList.map((g) => g.gameName);

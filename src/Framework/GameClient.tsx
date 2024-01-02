@@ -3,17 +3,18 @@ import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { Client } from 'boardgame.io/react';
 
-import { GameDefinition, PlayingBoardComponent, doMove, PlayingBoardState } from '../Frontend/Components/PlayingBoard/PlayingBoard';
+import { PlayingBoardComponent, doMove, GameState } from '../Frontend/Components/PlayingBoard/PlayingBoard';
 import React from 'react';
-import { MoveDescription } from './types';
+import { GameDefinition, MoveDescription } from './types';
 import { getAllPossibleMoves } from './BoardMovement';
 import { isMoveInOptions } from './Utilities';
 
 
-const gameWithSetupData = (setupData: GameDefinition): Game<PlayingBoardState> => ({
+const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
     setup: () => ({
         ...setupData.initialBoard,
-        possibleMoves : []}
+        possibleMoves : [],
+        gameOver: false}
 
     ),
 
@@ -23,6 +24,12 @@ const gameWithSetupData = (setupData: GameDefinition): Game<PlayingBoardState> =
         onBegin: ({ G, ctx }) => {
             return { ...G, possibleMoves: getAllPossibleMoves(G, ctx) };
         },
+    },
+
+    endIf: ({G, ctx}) => {
+        if(G.gameOver) {
+            return { winner: G.gameOver }
+        }
     },
 
     minPlayers: setupData.playerCount,
@@ -38,6 +45,10 @@ const gameWithSetupData = (setupData: GameDefinition): Game<PlayingBoardState> =
         }
     },
 });
+
+const isGameOver = (G: GameState, ctx: any) => {
+    return false;
+}
 
 export const ClientComponent = (gameSetup: GameDefinition) => {
     const GameClient = Client({ game: gameWithSetupData(gameSetup), board: PlayingBoardComponent });

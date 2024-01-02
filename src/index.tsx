@@ -9,6 +9,21 @@ import { PlayPage } from "./Frontend/Pages/PlayPage";
 import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { HomePage } from "./Frontend/Pages/HomePage";
+import { GameDefinition } from "./Framework/types";
+
+const localStorageSaveGame = (gameName: string, game: GameDefinition) => {
+    localStorage.setItem('game_' + gameName, JSON.stringify(game));
+}
+
+const getGameList = (): GameDefinition[] => {
+    const gameList: GameDefinition[] = [];
+    for (const gameName in localStorage) {
+        if (gameName.startsWith("game_")) {
+            gameList.push(JSON.parse(localStorage[gameName]));
+        }
+    }
+    return gameList;
+}
 
 const root = document.getElementById("root");
 render(
@@ -24,8 +39,8 @@ render(
                     <main>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
-                            <Route path="/play" element={<PlayPage />} />
-                            <Route path="/edit" element={<EditorPage />} />
+                            <Route path="/play" element={<PlayPage getGameList={getGameList} />} />
+                            <Route path="/edit" element={<EditorPage saveGame={localStorageSaveGame} />} />
                         </Routes>
                     </main>
 

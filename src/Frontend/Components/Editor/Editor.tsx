@@ -3,11 +3,11 @@ import { TileTemplates } from "./TileTemplates";
 import { EditingBoard } from "./EditingBoard";
 import { TokenTemplates } from "./TokenTemplates";
 import { Button } from "@mui/material";
-import { GameDefinition } from "../PlayingBoard/PlayingBoard";
-import { Token, Tile, GridPosition } from "../../../Framework/types";
+import { Token, Tile, GridPosition, GameDefinition, WinCondition, Board, SaveImplementation } from "../../../Framework/types";
 import { createTokenGrid, createTileGrid } from "../../../Framework/Utilities";
+import { Ctx } from "boardgame.io";
 
-export type EditorProps = { rowCount: number, colCount: number, gameName: string }
+export type EditorProps = { rowCount: number, colCount: number, gameName: string, saveGame: SaveImplementation }
 
 export type Template = (TokenTemplate | TileTemplate);
 
@@ -21,18 +21,11 @@ export type TileTemplate = {
     tile: Tile
 }
 
-const localStorageSaveGame = (gameName: string, game: GameDefinition) => {
-    localStorage.setItem('game_' + gameName, JSON.stringify(game));
-}
-
-//Set method to save games
-let saveGame: (gameName: string, game: GameDefinition) => void;
-saveGame = localStorageSaveGame;
-
 export const Editor = (props: EditorProps) => {
     const [tokens, setTokens] = useState(createTokenGrid(props.rowCount, props.colCount));
     const [tiles, setTiles] = useState(createTileGrid(props.rowCount, props.colCount))
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
+    const [winCondition, setWinCondition] = useState<WinCondition | null>(null);
 
     const onTemplateClicked = (template: Template) => {
         console.log("Clicked on template: " + template);
@@ -66,10 +59,12 @@ export const Editor = (props: EditorProps) => {
             },
             playerCount: 2,
             moveCount: 1,
-
+            winCondition: function (G: Board, ctx: Ctx): boolean {
+                throw new Error("Function not implemented.");
+            }
         }
 
-        saveGame(props.gameName, newGame);
+        props.saveGame(props.gameName, newGame);
     }
 
     return (
