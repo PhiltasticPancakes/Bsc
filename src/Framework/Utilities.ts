@@ -1,5 +1,6 @@
 import { GameState } from "../Frontend/Components/PlayingBoard/PlayingBoard";
-import { TokenGrid, TileGrid, MovementDescription, MoveDescription, GridPosition, Tile, Token } from "./types";
+import { getAllTileTypes } from "./TileTypes";
+import { TokenGrid, TileGrid, TileTypeName, MoveDescription, GridPosition, Tile, Token, TileType } from "./types";
 
 // This function is used to create an empty grid of tokens
 export function createTokenGrid(rows: number, cols: number): TokenGrid {
@@ -14,7 +15,9 @@ export function createTokenGrid(rows: number, cols: number): TokenGrid {
 export function createTileGrid(rows: number, cols: number): TileGrid {
   const grid: TileGrid = Array.from(Array(rows), () => new Array(cols));
   for (let i = 0; i < rows; i++) {
-    grid[i].fill({ movementDescription: MovementDescription.None });
+    for (let j = 0; j < cols; j++){
+      grid[i][j] = { gridPosition: { row: i, col: j }, tileTypeName: TileTypeName.Blank };
+    }
   }
   return grid;
 };
@@ -45,4 +48,11 @@ export const getTokenAtPosition = (G: GameState, pos: GridPosition): Token | nul
 
 export const getTileAtPosition = (G: GameState, pos: GridPosition): Tile => {
   return G.board.tiles[pos.row][pos.col];
+}
+
+export const getTileTypeByName = (name: TileTypeName): TileType => {
+  const allTileTypes = getAllTileTypes();
+  for(let i = 0; i < allTileTypes.length; i++) {
+  }
+  return getAllTileTypes().find(tt => tt.name == name)!;
 }

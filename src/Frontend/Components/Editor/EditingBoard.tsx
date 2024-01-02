@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { BoardComponent, EditingBoardProps} from "../Board";
+import { BaseBoardProps, BoardComponent} from "../Board";
+
+export type EditingBoardProps = BaseBoardProps & {
+    editing: true,
+}
 
 export const EditingBoard = (props: EditingBoardProps) => {
     return (

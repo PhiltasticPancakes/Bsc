@@ -6,7 +6,7 @@ import { Client } from 'boardgame.io/react';
 import { PlayingBoardComponent, doMove, GameState } from '../Frontend/Components/PlayingBoard/PlayingBoard';
 import React from 'react';
 import { GameDefinition, MoveDescription } from './types';
-import { getAllPossibleMoves } from './BoardMovement';
+import { getAllPossibleMoves } from './MovementPatterns';
 import { isMoveInOptions } from './Utilities';
 
 
@@ -37,7 +37,6 @@ const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
 
     moves: {
         move: ({ G }, moveDescription: MoveDescription) => {
-            console.log(G.possibleMoves.length);
             if (!isMoveInOptions(moveDescription, G.possibleMoves)) {
                 return INVALID_MOVE;
             }

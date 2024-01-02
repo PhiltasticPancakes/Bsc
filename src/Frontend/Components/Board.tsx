@@ -1,24 +1,19 @@
 import React from "react";
-import { EditingTileComponent, PlayingTileComponent } from "./Tiles.tsx/Tile";
 import { Board, GridPosition, Tile } from "../../Framework/types";
 import { compareGridPositions } from "../../Framework/Utilities";
+import { PlayingTileComponent, PlayingTileProps } from "./PlayingBoard/PlayingBoardTile";
+import { EditorTileProps } from "./Editor/EditorTile";
+import { TemplateTileProps } from "./Editor/TileTemplate";
+import { EditingBoardProps } from "./Editor/EditingBoard";
+import { PlayingBoardProps } from "./PlayingBoard/PlayingBoard";
+
+
+export type TileComponentProps = (EditorTileProps | TemplateTileProps | PlayingTileProps);
 
 
 
-
-type BaseBoardProps = Board & {
+export type BaseBoardProps = Board & {
     clickHandler: (pos: GridPosition) => void,
-
-};
-
-export type EditingBoardProps = BaseBoardProps & {
-    editing: true,
-}
-
-type PlayingBoardProps = BaseBoardProps & {
-    editing: false,
-    selectedTile: GridPosition | null,
-    highlightedTiles: GridPosition[]
 };
 
 type BoardComponentProps = PlayingBoardProps | EditingBoardProps;
@@ -38,21 +33,18 @@ export const BoardComponent = (props: BoardComponentProps) => {
                         const tile: Tile = props.tiles[rowNum][colNum];
                         return (
                             props.editing ?
-                                <EditingTileComponent
+                                <PlayingTileComponent
                                     isSelected={false}
                                     key={rowNum + "," + colNum}
-                                    gridPos={pos}
                                     token={token}
-                                    tile={tile} 
-                                    clickHandler={props.clickHandler}
-                                />
+                                    tile={tile}
+                                    clickHandler={props.clickHandler} isHighlighted={false}                                />
                                 :
                                 <PlayingTileComponent
                                     isHighlighted={props.highlightedTiles.some((t) => compareGridPositions(t, pos))}
                                     isSelected={props.selectedTile != null && compareGridPositions(pos, props.selectedTile)}
                                     key={rowNum + "," + colNum}
                                     clickHandler={props.clickHandler}
-                                    gridPos={pos}
                                     token={token}
                                     tile={tile}
                                 />)

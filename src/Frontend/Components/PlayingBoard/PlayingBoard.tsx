@@ -1,6 +1,6 @@
 import { BoardProps } from "boardgame.io/dist/types/packages/react";
 import React, { useState } from "react";
-import { BoardComponent } from "../Board";
+import { BaseBoardProps, BoardComponent } from "../Board";
 import { Board, MoveDescription, GridPosition, Token } from "../../../Framework/types";
 import { compareGridPositions } from "../../../Framework/Utilities";
 import { PlayerID } from "boardgame.io";
@@ -13,6 +13,12 @@ export type GameState =  {board: Board, possibleMoves: MoveDescription[],  gameO
 
 //Props extending BG base type
 export type PlayingBoardComponentProps = BoardProps<GameState>;
+
+export type PlayingBoardProps = BaseBoardProps & {
+  editing: false,
+  selectedTile: GridPosition | null,
+  highlightedTiles: GridPosition[]
+};
 
 //Component
 export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentProps) => {

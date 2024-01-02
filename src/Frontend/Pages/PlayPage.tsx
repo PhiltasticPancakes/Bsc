@@ -22,8 +22,6 @@ export const PlayPage = ( props: PlayPageProps ) => {
     const GameModePicker = () => {
         const gameList: GameDefinition[] = props.getGameList();
 
-
-        const gameNames: string[] = gameList.map((g) => g.gameName);
         return (
 
             <div style={{ display: "flex", flexDirection: "column" }}>

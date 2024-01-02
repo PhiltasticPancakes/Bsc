@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { TileTemplates } from "./TileTemplates";
+import { TileTemplates } from "./TileTemplateMenu";
 import { EditingBoard } from "./EditingBoard";
 import { TokenTemplates } from "./TokenTemplates";
 import { Button } from "@mui/material";
-import { Token, Tile, GridPosition, GameDefinition, WinCondition, Board, SaveImplementation } from "../../../Framework/types";
+import { Token, Tile, GridPosition, GameDefinition, WinCondition, Board, SaveImplementation, TileType } from "../../../Framework/types";
 import { createTokenGrid, createTileGrid } from "../../../Framework/Utilities";
 import { useNavigate } from "react-router-dom";
 
@@ -12,13 +12,13 @@ export type EditorProps = { rowCount: number, colCount: number, gameName: string
 export type Template = (TokenTemplate | TileTemplate);
 
 export type TokenTemplate = {
-    type: "token",
+    templateType: "token",
     token: Token
 }
 
 export type TileTemplate = {
-    type: "tile",
-    tile: Tile
+    templateType: "tile",
+    tileType: TileType
 }
 
 type ZoneControlType = WinCondition & {zone: GridPosition[]};
@@ -45,17 +45,18 @@ export const Editor = (props: EditorProps) => {
     }
 
     const onBoardTileClicked = (gridpos: GridPosition): void => {
+        console.log("Clicked on tile: " + gridpos.row + "," + gridpos.col);
         if (selectedTemplate == null) {
             return;
         }
 
-        if (selectedTemplate.type == "token") {
+        if (selectedTemplate.templateType == "token") {
             const newTokens = tokens.slice();
             newTokens[gridpos.row][gridpos.col] = selectedTemplate.token;
             setTokens(newTokens);
         } else {
             const newTiles = tiles.slice();
-            newTiles[gridpos.row][gridpos.col] = selectedTemplate.tile;
+            newTiles[gridpos.row][gridpos.col].tileTypeName = selectedTemplate.tileType.name;
             setTiles(newTiles);
         }
     }

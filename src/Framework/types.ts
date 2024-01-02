@@ -35,12 +35,18 @@ export type GridPosition = {
  */
 export type BoardItem = Tile | Token;
 
+export type MovementPattern = (pos: GridPosition, G: GameState) => GridPosition[];
+
 /**
  * Represents a tile on the board.
  */
 export type Tile = {
-    movementDescription: MovementDescription;
+        gridPosition: GridPosition;
+        tileTypeName: TileTypeName;
 }
+
+export type TileType = {name: TileTypeName, description:string, movementPattern: MovementPattern, color: string };
+
 
 /**
  * Represents a grid of tiles.
@@ -83,11 +89,11 @@ export type SaveImplementation = (gameName: string, game: GameDefinition) => voi
 /**
  * There are the valid movement descriptions, these are used to determine how a token can move depending on the tile it is on.
  */
-export enum MovementDescription {
+export enum TileTypeName {
     Knight = "knight",
     Rook = "rook",
     Bishop = "bishop",
     King = "king",
     Queen = "queen",
-    None = "none"
+    Blank = "none"
 }

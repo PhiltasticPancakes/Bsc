@@ -14,7 +14,7 @@ export type TemplateTokenProps = {
 
 export const TemplateTokenComponent = (props: TemplateTokenProps) => {
     return (
-        <div onClick={() => props.clickHandler({ type: "token", token: props.token })}>
+        <div onClick={() => props.clickHandler({ templateType: "token", token: props.token })}>
             <OmatiToken playerID={props.token.playerID} />
         </div>
     )
