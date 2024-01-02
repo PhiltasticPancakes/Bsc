@@ -1,8 +1,8 @@
 import React from "react"
-import { TemplateTileComponent} from "../../Tiles.tsx/Tile";
+import { TemplateTileComponent} from "../Tiles.tsx/Tile";
 import { Template } from "webpack";
 import { TileTemplate } from "./Editor";
-import { MovementDescription } from "../../Framework/types";
+import { MovementDescription } from "../../../Framework/types";
 
 type TileTemplatesProps = {
   clickHandler: (template: Template) => void;

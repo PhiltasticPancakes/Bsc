@@ -1,7 +1,7 @@
 import React from "react";
 import { OmatiToken } from "./OmatiToken";
-import { Template } from "../Components/Editor/Editor";
-import { playerID } from "../Framework/types";
+import { Template } from "../Editor/Editor";
+import { playerID } from "../../../Framework/types";
 
 export type TokenProps = {
     playerID: playerID;

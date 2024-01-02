@@ -1,8 +1,8 @@
 import { BoardProps } from "boardgame.io/dist/types/packages/react";
 import React, { useState } from "react";
-import { BoardComponent } from "../../Board";
-import { compareGridPositions } from "../../Framework/BoardMovement";
-import { Board, MoveDescription, GridPosition, Token } from "../../Framework/types";
+import { BoardComponent } from "../Board";
+import { Board, MoveDescription, GridPosition, Token } from "../../../Framework/types";
+import { compareGridPositions } from "../../../Framework/Utilities";
 
 
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.

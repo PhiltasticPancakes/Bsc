@@ -1,7 +1,7 @@
 import React from "react";
 import { EditingTileComponent, PlayingTileComponent } from "./Tiles.tsx/Tile";
-import { compareGridPositions } from "./Framework/BoardMovement";
-import { Board, GridPosition, Tile } from "./Framework/types";
+import { Board, GridPosition, Tile } from "../../Framework/types";
+import { compareGridPositions } from "../../Framework/Utilities";
 
 
 

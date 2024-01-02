@@ -4,8 +4,8 @@ import { EditingBoard } from "./EditingBoard";
 import { TokenTemplates } from "./TokenTemplates";
 import { Button } from "@mui/material";
 import { GameDefinition } from "../PlayingBoard/PlayingBoard";
-import { Token, Tile, GridPosition } from "../../Framework/types";
-import { createTokenGrid, createTileGrid } from "../../Framework/Utilities";
+import { Token, Tile, GridPosition } from "../../../Framework/types";
+import { createTokenGrid, createTileGrid } from "../../../Framework/Utilities";
 
 export type EditorProps = { rowCount: number, colCount: number, gameName: string }
 

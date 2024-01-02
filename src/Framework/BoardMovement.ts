@@ -1,10 +1,6 @@
 import { Ctx } from "boardgame.io";
 import { GridPosition, Token, Board, MoveDescription } from "./types";
 
-
-
-
-
 function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   const knightMoveOffsets = [
     { row: -2, col: -1 },
@@ -152,14 +148,3 @@ const possibleMovesAtPos = ({ tokens, tiles: tiles }: Board, gridPos: GridPositi
   return possibleMoves;
 }
 
-export const isMoveInOptions = (move: MoveDescription, options: MoveDescription[]) => {
-  return options.some(md => compareMoveOptions(md, move));
-}
-
-const compareMoveOptions = (move1: MoveDescription, move2: MoveDescription): boolean => {
-  return (compareGridPositions(move1.from, move2.from) && compareGridPositions(move1.to, move2.to))
-}
-
-export const compareGridPositions = (pos1: GridPosition, pos2: GridPosition): boolean => {
-  return pos1.row == pos2.row && pos1.col == pos2.col;
-}
