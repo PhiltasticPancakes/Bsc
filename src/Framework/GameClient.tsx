@@ -43,7 +43,7 @@ const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
 
   endIf: ({ G, ctx }) => {
     if (G.gameOver) {
-      return { winner: ctx.playOrderPos %2 };
+      return { winner: Number(G.gameOver)+ 1 %2 };
     }
   },
 
