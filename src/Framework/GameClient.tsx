@@ -1,4 +1,4 @@
-import { Game } from "boardgame.io";
+import { Ctx, Game } from "boardgame.io";
 import { INVALID_MOVE } from "boardgame.io/core";
 import { Client } from "boardgame.io/react";
 
@@ -11,6 +11,15 @@ import React from "react";
 import { GameDefinition, MoveDescription } from "./types";
 import { getAllPossibleMoves } from "./MovementPatterns";
 import { isMoveInOptions } from "./Utilities";
+const hasTokenInZone = (G: GameState, ctx: Ctx) => {
+  for(const pos of G.winZone) {
+    const token = G.board.tokens[pos.row][pos.col];
+    if(token && token.playerID === ctx.currentPlayer) {
+      return true;
+    }
+  }
+  return false;
+}
 
 const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
   setup: () => ({
@@ -18,19 +27,23 @@ const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
     possibleMoves: [],
     gameOver: false,
     winZone: setupData.winZone,
+    threatened: false
   }),
 
   turn: {
     minMoves: setupData.moveCount,
     maxMoves: setupData.moveCount,
     onBegin: ({ G, ctx }) => {
-      return { ...G, possibleMoves: getAllPossibleMoves(G, ctx) };
+      return { ...G, possibleMoves: getAllPossibleMoves(G, ctx), threatened: !hasTokenInZone(G, ctx) };
+    },
+    onEnd: ({ G, ctx }) => {
+      return { ...G, gameOver: (G.threatened && !hasTokenInZone(G, ctx))? ctx.currentPlayer : false  };
     },
   },
 
   endIf: ({ G, ctx }) => {
     if (G.gameOver) {
-      return { winner: G.gameOver };
+      return { winner: ctx.playOrderPos %2 };
     }
   },
 
@@ -47,9 +60,7 @@ const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
   },
 });
 
-const isGameOver = (G: GameState, ctx: any) => {
-  return false;
-};
+
 
 export const ClientComponent = (gameSetup: GameDefinition) => {
   const GameClient = Client({

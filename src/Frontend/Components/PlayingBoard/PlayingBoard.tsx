@@ -16,6 +16,9 @@ export type GameState = {
   possibleMoves: MoveDescription[];
   gameOver: false | PlayerID;
   winZone: GridPosition[];
+
+  threatened: boolean;
+
 };
 
 //Props extending BG base type
