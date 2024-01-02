@@ -21,11 +21,22 @@ export type TileTemplate = {
     tile: Tile
 }
 
+type ZoneControlType = WinCondition & {zone: GridPosition[]};
+
+const ZoneControl: ZoneControlType = {
+    description: "Zone Control",
+    check: (gameState) => {
+        return false;
+    },
+    zone: []
+}
+
+
 export const Editor = (props: EditorProps) => {
     const [tokens, setTokens] = useState(createTokenGrid(props.rowCount, props.colCount));
     const [tiles, setTiles] = useState(createTileGrid(props.rowCount, props.colCount))
     const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
-    const [winCondition, setWinCondition] = useState<WinCondition | null>(null);
+    const [winCondition, setWinCondition] = useState<WinCondition>( ZoneControl );
 
     const navigate = useNavigate();
 
@@ -60,7 +71,7 @@ export const Editor = (props: EditorProps) => {
             },
             playerCount: 2,
             moveCount: 1,
-            winCondition: winCondition?? {zone: []},
+            winCondition: winCondition,
         }
 
         props.saveGame(props.gameName, newGame);
@@ -71,6 +82,9 @@ export const Editor = (props: EditorProps) => {
         <>
             <div style={{ display: "flex", justifyContent: "space-between" , border: "2px solid black"}}>
                 <h1>GameMode: {props.gameName}</h1>
+
+                <Button style={{position: 'absolute', left: '50%', right: '50%'}} variant="outlined" onClick={() =>{ return null}}> Select contested zone </Button>
+
                 <Button variant="outlined" onClick={() => onSaveClicked()}> Save </Button>
             </div>
             <div className="editor">
