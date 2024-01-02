@@ -51,6 +51,10 @@ export const Editor = (props: EditorProps) => {
     }
 
     const onSaveClicked = () => {
+        if(winCondition == null){
+            return;
+        }
+
         const newGame: GameDefinition = {
             gameName: props.gameName,
             initialBoard: {
@@ -59,9 +63,7 @@ export const Editor = (props: EditorProps) => {
             },
             playerCount: 2,
             moveCount: 1,
-            winCondition: function (G: Board, ctx: Ctx): boolean {
-                throw new Error("Function not implemented.");
-            }
+            winCondition: winCondition
         }
 
         props.saveGame(props.gameName, newGame);

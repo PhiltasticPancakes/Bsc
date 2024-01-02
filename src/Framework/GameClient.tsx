@@ -12,7 +12,7 @@ import { isMoveInOptions } from './Utilities';
 
 const gameWithSetupData = (setupData: GameDefinition): Game<GameState> => ({
     setup: () => ({
-        ...setupData.initialBoard,
+        board: setupData.initialBoard,
         possibleMoves : [],
         gameOver: false}
 

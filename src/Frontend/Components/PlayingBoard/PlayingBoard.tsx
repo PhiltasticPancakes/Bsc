@@ -7,7 +7,7 @@ import { compareGridPositions } from "../../../Framework/Utilities";
 
 
 //JSON serializables gameobjects provided to G in boardgame.io framework, need to be seperate types with no functions.
-export type GameState = Board & { possibleMoves: MoveDescription[],  gameOver: false | playerID}
+export type GameState =  {board: Board, possibleMoves: MoveDescription[],  gameOver: false | playerID}
 
 
 //Props extending BG base type
@@ -42,7 +42,7 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   }
 
   const getTokenAtPos = (pos: GridPosition): Token | null => {
-    return G.tokens[pos.row][pos.col];
+    return G.board.tokens[pos.row][pos.col];
   }
   
   //if selected, highlight possible moves
@@ -52,8 +52,8 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
   return (
       <BoardComponent
         editing={false}
-        tokens={G.tokens}
-        tiles={G.tiles}
+        tokens={G.board.tokens}
+        tiles={G.board.tiles}
         clickHandler={handleOnTileClicked}
         selectedTile={selected}
         highlightedTiles={highlightedTiles} />
@@ -62,8 +62,8 @@ export const PlayingBoardComponent = ({ G, ctx, moves }: PlayingBoardComponentPr
 };
 
 export const doMove = ({ from, to }: MoveDescription, G: GameState): void => {
-  G.tokens[to.row][to.col] = G.tokens[from.row][from.col];
-  G.tokens[from.row][from.col] = null;
+  G.board.tokens[to.row][to.col] = G.board.tokens[from.row][from.col];
+  G.board.tokens[from.row][from.col] = null;
 }
 
 export { Board };

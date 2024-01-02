@@ -1,5 +1,6 @@
 import { Ctx } from "boardgame.io";
 import { GridPosition, Token, Board, MoveDescription } from "./types";
+import { GameState } from "../Frontend/Components/PlayingBoard/PlayingBoard";
 
 function knightMovement(pos: GridPosition, tokens: Token[][]): GridPosition[] {
   const knightMoveOffsets = [
@@ -112,9 +113,9 @@ const isWithinBounds = (pos: GridPosition, tokens: Token[][]): boolean => {
   return pos.row >= 0 && pos.row < rowCount && pos.col >= 0 && pos.col < colCount
 }
 
-export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
-  let rowCount: number = G.tokens.length;
-  let colCount: number = G.tokens[0].length;
+export const getAllPossibleMoves = (G: GameState, ctx: Ctx): MoveDescription[] => {
+  let rowCount: number = G.board.tokens.length;
+  let colCount: number = G.board.tokens[0].length;
   let optionsAtPos: MoveDescription[] = [];
 
   let pos: GridPosition;
@@ -123,7 +124,7 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 
   for (let i = 0; i < rowCount; i++) {
     for (let j = 0; j < colCount; j++) {
-      if(!G.tokens[i][j] || G.tokens[i][j] != ctx.currentPlayer ) {
+      if(!G.board.tokens[i][j] || G.board.tokens[i][j] != ctx.currentPlayer ) {
         continue;
       }
       pos = { row: i, col: j };
@@ -136,14 +137,14 @@ export const getAllPossibleMoves = (G: Board, ctx: Ctx): MoveDescription[] => {
 }
 
 
-const possibleMovesAtPos = ({ tokens, tiles: tiles }: Board, gridPos: GridPosition): MoveDescription[] => {
+const possibleMovesAtPos = ({ board }: GameState, gridPos: GridPosition): MoveDescription[] => {
   //Parses the string description to a function call to collect possible moves
-  let parsedFunction: string = tiles[gridPos.row][gridPos.col].movementDescription + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(tokens) + ")";
+  let parsedFunction: string = board.tiles[gridPos.row][gridPos.col].movementDescription + "Movement(" + JSON.stringify(gridPos) + "," + JSON.stringify(board.tokens) + ")";
 
   //Error prone implementation, use function to return correct movementpattern from string
   const reachablePositions: GridPosition[] = eval(parsedFunction) as GridPosition[];
   const possibleMoves: MoveDescription[] = reachablePositions.map(
-    (option: GridPosition) => ({ playerID: tokens[gridPos.row][gridPos.col], from: gridPos, to:  option} as MoveDescription)
+    (option: GridPosition) => ({ playerID: board.tokens[gridPos.row][gridPos.col], from: gridPos, to:  option} as MoveDescription)
   );
   return possibleMoves;
 }

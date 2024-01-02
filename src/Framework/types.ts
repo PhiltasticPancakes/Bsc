@@ -1,4 +1,5 @@
 import { Ctx } from "boardgame.io";
+import { GameState } from "../Frontend/Components/PlayingBoard/PlayingBoard";
 
 export type MoveDescription = {
     playerID: playerID;
@@ -28,7 +29,9 @@ export type TileGrid = (Tile)[][];
 
 export type TokenGrid = (Token | null)[][];
 
-export type WinCondition = (G: Board, ctx: Ctx) => boolean;
+export type WinCondition = ZoneControl;
+
+export type ZoneControl = { zone: GridPosition[] };
 
 export type GameDefinition = {
     gameName: string;
@@ -38,7 +41,7 @@ export type GameDefinition = {
     moveCount?: number;
 }
 
-export type SaveImplementation = (gameName: string, game: GameDefinition) => void
+export type SaveImplementation = (gameName: string, game: GameDefinition) => void;
 
 export enum MovementDescription {
     Knight = "knight",
